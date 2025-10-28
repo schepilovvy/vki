@@ -1,0 +1,10 @@
+POST http://localhost:3000/api/students
+Content-Type: application/json   
+
+{
+  "firstName": "John",
+  "lastName": "LName",
+  "middleName": "middleName",
+  "contacts": "contact",
+  "groupId": 1
+}
