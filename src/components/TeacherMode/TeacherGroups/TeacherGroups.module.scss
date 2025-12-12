@@ -1,0 +1,134 @@
+@use '../../../styles/main';
+
+.TeacherGroups {
+  margin-bottom: 30px;
+
+  h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .empty {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    color: #666;
+    text-align: center;
+  }
+
+  .groupsList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+  }
+
+  .groupItem {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+    .groupHeader {
+      padding: 15px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      transition: background-color 0.2s;
+
+      @media #{main.$mob} {
+        padding: 12px;
+      }
+
+      &:hover {
+        background-color: #f8f9fa;
+      }
+
+      .groupInfo {
+        flex: 1;
+
+        h3 {
+          margin: 0 0 10px 0;
+          color: #2c3e50;
+          font-size: 1.2em;
+
+          @media #{main.$mob} {
+            font-size: 1em;
+          }
+        }
+
+        p {
+          margin: 5px 0;
+          color: #666;
+          font-size: 0.9em;
+
+          strong {
+            color: #333;
+          }
+        }
+
+        .studentsCount {
+          margin-top: 10px;
+          font-weight: 500;
+        }
+      }
+
+      .toggleIcon {
+        font-size: 0.8em;
+        color: #666;
+        margin-left: 10px;
+        align-self: center;
+      }
+    }
+
+    .studentsList {
+      padding: 15px;
+      border-top: 1px solid #eee;
+      background-color: #f8f9fa;
+
+      @media #{main.$mob} {
+        padding: 12px;
+      }
+
+      h4 {
+        margin: 0 0 15px 0;
+        font-size: 1em;
+        color: #2c3e50;
+
+        @media #{main.$mob} {
+          font-size: 0.9em;
+          margin-bottom: 12px;
+        }
+      }
+
+      .emptyStudents {
+        color: #999;
+        font-style: italic;
+        margin: 0;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        .studentItem {
+          padding: 8px 12px;
+          margin-bottom: 5px;
+          background-color: white;
+          border-radius: 4px;
+          border-left: 3px solid #667eea;
+          color: #2c3e50;
+          font-size: 0.95em;
+
+          @media #{main.$mob} {
+            padding: 8px 10px;
+            font-size: 0.9em;
+          }
+        }
+      }
+    }
+  }
+}
+

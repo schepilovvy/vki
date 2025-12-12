@@ -1,0 +1,102 @@
+@use '../../../styles/main';
+
+.StudentGroupInfo {
+  margin-bottom: 30px;
+
+  @media #{main.$mob} {
+    margin-bottom: 20px;
+  }
+
+  .groupCard {
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    color: #2c3e50;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+
+    @media #{main.$mob} {
+      padding: 15px;
+    }
+
+    .groupName {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #2c3e50 !important;
+      text-shadow: none !important;
+
+      @media #{main.$mob} {
+        font-size: 1.2em;
+        margin-bottom: 12px;
+      }
+    }
+
+    .groupInfo {
+      margin: 8px 0;
+      font-size: 1.1em;
+      color: #2c3e50;
+
+      @media #{main.$mob} {
+        font-size: 0.95em;
+      }
+
+      strong {
+        margin-right: 8px;
+        color: #2c3e50;
+      }
+    }
+  }
+
+  .studentsSection {
+    h3 {
+      margin: 0 0 15px 0;
+      font-size: 1.3em;
+      color: #2c3e50;
+
+      @media #{main.$mob} {
+        font-size: 1.1em;
+        margin-bottom: 12px;
+      }
+    }
+
+    .emptyStudents {
+      padding: 20px;
+      text-align: center;
+      color: #999;
+      background-color: #f5f5f5;
+      border-radius: 8px;
+
+      @media #{main.$mob} {
+        padding: 15px;
+      }
+    }
+
+    .studentsList {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 10px;
+
+      @media #{main.$mob} {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .studentItem {
+        padding: 12px 15px;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        border-left: 4px solid #667eea;
+        color: #2c3e50;
+        font-size: 0.95em;
+
+        @media #{main.$mob} {
+          padding: 10px 12px;
+          font-size: 0.9em;
+        }
+      }
+    }
+  }
+}
+

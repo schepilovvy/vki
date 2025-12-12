@@ -8,6 +8,12 @@ export class Group {
   @Column()
   name!: string;
 
-  @Column()
-  contacts!: string;
+  @Column({ nullable: true })
+  teacherId?: number;
+
+  @Column({ nullable: true })
+  course?: number;
+
+  @Column({ nullable: true })
+  specialty?: string;
 }

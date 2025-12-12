@@ -1,4 +1,4 @@
-import Groups from '@/components/Groups/Groups';
+import Login from '@/components/Auth/Login/Login';
 import Page from '@/components/layout/Page/Page';
 import { META_DESCRIPTION, META_TITLE } from '@/constants/meta';
 import { type Metadata } from 'next/types';
@@ -8,11 +8,10 @@ export const metadata: Metadata = {
   description: META_DESCRIPTION,
 };
 
-const GroupsPage = (): React.ReactNode => (
+const LoginPage = (): React.ReactNode => (
   <Page>
-    <h1>Группы</h1>
-    <Groups />
+    <Login />
   </Page>
 );
 
-export default GroupsPage;
+export default LoginPage;

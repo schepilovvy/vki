@@ -3,5 +3,18 @@
 .Main {
   display: flex;
   min-height: calc(100vh - 180px);
-  padding: 20px main.$webSidePadding;
+  padding: 40px main.$webSidePadding;
+  position: relative;
+  z-index: 1;
+  
+  // Обеспечиваем, что контент будет выше фона
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media #{main.$mob} {
+    padding: 20px main.$mobSidePadding;
+    min-height: calc(100vh - 140px);
+  }
 }

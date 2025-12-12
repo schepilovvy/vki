@@ -11,7 +11,7 @@ export const getStudentsApi = async (): Promise<StudentInterface[]> => {
     return students;
   }
   catch (err) {
-    console.log('>>> getGroupsApi', err);
+    console.log('>>> getStudentsApi', err);
     return [] as StudentInterface[];
   }
 };
@@ -38,7 +38,7 @@ export const deleteStudentApi = async (studentId: number): Promise<number> => {
   }
 };
 
-export const addStudentApi = async (student: StudentInterface): Promise<StudentInterface> => {
+export const addStudentApi = async (student: StudentInterface & { password?: string }): Promise<StudentInterface> => {
   console.log('addStudentApi');
   debugger;
   try {

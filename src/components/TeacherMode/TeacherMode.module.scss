@@ -1,0 +1,62 @@
+@use '../../styles/main';
+
+.TeacherMode {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @media #{main.$mob} {
+    gap: 15px;
+  }
+}
+
+.teacherInfo {
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  @media #{main.$mob} {
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+
+  h1 {
+    margin: 0 0 10px 0;
+    font-size: 1.8em;
+    color: #2c3e50 !important;
+    text-shadow: none !important;
+    font-weight: bold;
+
+    @media #{main.$mob} {
+      font-size: 1.4em;
+    }
+  }
+
+  .teacherName {
+    margin: 0;
+    font-size: 1.3em;
+    font-weight: 500;
+    color: #2c3e50;
+
+    @media #{main.$mob} {
+      font-size: 1.1em;
+    }
+  }
+}
+
+.tabContent {
+  flex: 1;
+}
+
+.error {
+  padding: 20px;
+  background-color: #fee;
+  border: 1px solid #fcc;
+  border-radius: 4px;
+  color: #c33;
+  text-align: center;
+}
+

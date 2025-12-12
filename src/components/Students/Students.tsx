@@ -1,6 +1,7 @@
 'use client';
 
 import useStudents from '@/hooks/useStudents';
+import useGroups from '@/hooks/useGroups';
 import type StudentInterface from '@/types/StudentInterface';
 import styles from './Students.module.scss';
 import Student from './Student/Student';
@@ -13,6 +14,7 @@ const Students = (): React.ReactElement => {
     deleteStudentMutate,
     addStudentMutate,
   } = useStudents();
+  const { groups } = useGroups();
 
   /**
    * Удаление студента - обработчик события нажатия "удалить"
@@ -38,7 +40,6 @@ const Students = (): React.ReactElement => {
     addStudentMutate({
       id: -1,
       ...studentFormField,
-      groupId: 1,
       uuid: uuidv4(),
     });
   };
@@ -47,13 +48,17 @@ const Students = (): React.ReactElement => {
     <div className={styles.Students}>
       <AddStudent onAdd={onAddHandler} />
 
-      {students.map((student: StudentInterface) => (
-        <Student
-          key={student.id || student.uuid}
-          student={student}
-          onDelete={onDeleteHandler}
-        />
-      ))}
+      {students.map((student: StudentInterface) => {
+        const group = groups.find(g => g.id === student.groupId);
+        return (
+          <Student
+            key={student.id || student.uuid}
+            student={student}
+            groupName={group?.name}
+            onDelete={onDeleteHandler}
+          />
+        );
+      })}
     </div>
   );
 };

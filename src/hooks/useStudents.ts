@@ -15,10 +15,10 @@ interface StudentsHookInterface {
 const useStudents = (): StudentsHookInterface => {
   const queryClient = useQueryClient();
 
-  const { data, refetch } = useQuery({
+  const { data, refetch, isLoading } = useQuery({
     queryKey: ['students'],
     queryFn: () => getStudentsApi(),
-    enabled: false,
+    enabled: true,
   });
 
   /**

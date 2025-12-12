@@ -3,7 +3,7 @@ import styles from './Header.module.scss';
 
 const Header = (): React.ReactElement => (
   <header className={styles.Header}>
-    <div className={styles.title}>Вэб разработка</div>
+    <div className={styles.title}>Дневник</div>
     <Menu />
   </header>
 );

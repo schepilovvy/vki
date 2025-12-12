@@ -1,0 +1,158 @@
+@use '../../../styles/main';
+
+.TeacherDisciplines {
+  margin-bottom: 30px;
+
+  @media #{main.$mob} {
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    margin-bottom: 20px;
+    color: #333;
+
+    @media #{main.$mob} {
+      font-size: 1.2em;
+      margin-bottom: 15px;
+    }
+  }
+
+  .empty {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    color: #666;
+    text-align: center;
+
+    @media #{main.$mob} {
+      padding: 15px;
+    }
+  }
+
+  .disciplinesList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+
+    @media #{main.$mob} {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+  }
+
+  .disciplineItem {
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+
+    @media #{main.$mob} {
+      padding: 12px;
+    }
+
+    &:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .disciplineHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+
+      @media #{main.$mob} {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+
+      .disciplineTitle {
+        margin: 0;
+        color: #2c3e50;
+        font-size: 1.2em;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+        flex: 1;
+        cursor: pointer;
+
+        @media #{main.$mob} {
+          font-size: 1em;
+          width: 100%;
+          padding-bottom: 8px;
+        }
+      }
+
+      .actions {
+        display: flex;
+        gap: 10px;
+        margin-left: 15px;
+
+        @media #{main.$mob} {
+          flex-direction: column;
+          width: 100%;
+          margin-left: 0;
+          gap: 8px;
+        }
+      }
+
+      .gradesButton {
+        padding: 8px 16px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9em;
+        font-weight: 500;
+        white-space: nowrap;
+
+        @media #{main.$mob} {
+          width: 100%;
+          padding: 10px;
+        }
+
+        &:hover {
+          background-color: #2980b9;
+        }
+      }
+
+      .addHomeworkButton {
+        padding: 8px 16px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9em;
+        font-weight: 500;
+        white-space: nowrap;
+
+        @media #{main.$mob} {
+          width: 100%;
+          padding: 10px;
+        }
+
+        &:hover {
+          background-color: #218838;
+        }
+      }
+    }
+
+    .groupInfo {
+      p {
+        margin: 8px 0;
+        color: #666;
+        font-size: 0.9em;
+
+        strong {
+          color: #333;
+        }
+      }
+    }
+  }
+}
+

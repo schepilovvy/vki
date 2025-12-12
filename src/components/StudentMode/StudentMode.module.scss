@@ -1,0 +1,85 @@
+.StudentMode {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @media (min-width: 0px) and (max-width: 1023px) {
+    gap: 15px;
+  }
+}
+
+.studentInfo {
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  @media (min-width: 0px) and (max-width: 1023px) {
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+
+  h1 {
+    margin: 0 0 10px 0;
+    font-size: 1.8em;
+    color: #2c3e50 !important;
+    text-shadow: none !important;
+    font-weight: bold;
+
+    @media (min-width: 0px) and (max-width: 1023px) {
+      font-size: 1.4em;
+    }
+  }
+
+  .studentName {
+    margin: 0;
+    font-size: 1.3em;
+    font-weight: 500;
+    color: #2c3e50;
+
+    @media (min-width: 0px) and (max-width: 1023px) {
+      font-size: 1.1em;
+    }
+  }
+}
+
+.tabContent {
+  flex: 1;
+}
+
+.error {
+  padding: 20px;
+  background-color: #fee;
+  border: 1px solid #fcc;
+  border-radius: 4px;
+  color: #c33;
+  
+  h3 {
+    margin: 0 0 15px 0;
+    color: #c33;
+  }
+  
+  p {
+    margin: 8px 0;
+    line-height: 1.5;
+  }
+  
+  ul {
+    margin: 10px 0;
+    padding-left: 20px;
+    
+    li {
+      margin: 5px 0;
+    }
+  }
+}
+
+.loading {
+  padding: 40px;
+  text-align: center;
+  color: #666;
+  font-size: 1.1em;
+}
+

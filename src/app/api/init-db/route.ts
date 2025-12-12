@@ -11,7 +11,9 @@ export async function GET(): Promise<Response> {
 
   const newGroup = await addGroupsDb({
     name: 'name',
-    contacts: '',
+    teacherId: 1,
+    course: 1,
+    specialty: 'Информационные системы и программирование',
   });
 
   console.log(newStudent, newGroup);

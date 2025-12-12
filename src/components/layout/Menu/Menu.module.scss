@@ -1,17 +1,92 @@
+@use '../../../styles/main';
+
 .Menu {
   display: flex;
-  background-color: var(--background2);
+  background: transparent;
   justify-content: flex-start;
   gap: 40px;
   align-items: center;
   font-size: 18px;
-  color: var(--color);
+  color: #2c3e50;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+  @media #{main.$mob} {
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 14px;
+  }
+
   a {
-    color: var(--color);
+    color: #2c3e50;
     text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    font-weight: 500;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    cursor: pointer;
+
+    @media #{main.$mob} {
+      padding: 6px 12px;
+      font-size: 0.9em;
+    }
+
+    &:hover {
+      background-color: rgba(102, 126, 234, 0.1);
+      color: #667eea;
+    }
+  }
+
+  .logoutButton {
+    margin-left: auto;
+
+    @media #{main.$mob} {
+      margin-left: 0;
+      width: 100%;
+      
+      button {
+        width: 100%;
+      }
+    }
+
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      transition: all 0.2s;
+
+      @media #{main.$mob} {
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+
+      &:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
   }
 }
 
 .linkActive {
-  text-decoration: underline;
+  background-color: rgba(102, 126, 234, 0.15) !important;
+  color: #667eea !important;
+  font-weight: 600;
 }

@@ -3,10 +3,11 @@ import styles from './Student.module.scss';
 
 interface Props {
   student: StudentInterface;
+  groupName?: string;
   onDelete: (id: number) => void;
 }
 
-const Student = ({ student, onDelete }: Props): React.ReactElement => {
+const Student = ({ student, groupName, onDelete }: Props): React.ReactElement => {
   const onDeleteHandler = (): void => {
     onDelete(student.id);
   };
@@ -15,7 +16,10 @@ const Student = ({ student, onDelete }: Props): React.ReactElement => {
 
   return (
     <div className={`${styles.Student} ${styles[modifier]}`}>
-      {`${student.id || 'xxxx'} - ${student.lastName} ${student.firstName} ${student.middleName}`}
+      <div>
+        {`${student.id || 'xxxx'} - ${student.lastName} ${student.firstName} ${student.middleName}`}
+        {groupName && <span className={styles.groupName}> (Группа: {groupName})</span>}
+      </div>
       <button onClick={onDeleteHandler}>Удалить</button>
     </div>
   );

@@ -1,0 +1,122 @@
+@use '../../../styles/main';
+
+.Login {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-height: 80vh;
+  width: 100%;
+  padding: 20px;
+  padding-right: 60px;
+  box-sizing: border-box;
+  margin: 0;
+
+  @media #{main.$mob} {
+    padding: 15px;
+    padding-right: 15px;
+    min-height: 70vh;
+    justify-content: center;
+  }
+}
+
+.loginCard {
+  width: 100%;
+  max-width: 400px;
+  padding: 40px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+  margin: 0;
+
+  @media #{main.$mob} {
+    padding: 25px 20px;
+    max-width: 100%;
+  }
+
+  h1 {
+    margin: 0 0 30px 0;
+    text-align: center;
+    font-size: 2em;
+    color: #2c3e50 !important;
+    text-shadow: none !important;
+
+    @media #{main.$mob} {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+  }
+
+  .loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .formGroup {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      label {
+        font-weight: 500;
+        color: #2c3e50;
+      }
+
+      input {
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1em;
+        color: #2c3e50;
+        transition: border-color 0.2s;
+
+        &:focus {
+          outline: none;
+          border-color: #667eea;
+        }
+
+        &:disabled {
+          background-color: #f5f5f5;
+          cursor: not-allowed;
+          color: #999;
+        }
+
+        &::placeholder {
+          color: #999;
+        }
+      }
+    }
+
+    .error {
+      padding: 12px;
+      background-color: #fee;
+      border: 1px solid #fcc;
+      border-radius: 4px;
+      color: #c33;
+      text-align: center;
+    }
+
+    .submitButton {
+      padding: 12px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.1em;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.2s;
+
+      &:hover:not(:disabled) {
+        opacity: 0.9;
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
