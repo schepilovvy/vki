@@ -100,7 +100,7 @@ VKI-Next — это полнофункциональная система упр
 
 1) Открыть cmd, выполнить (склонировать проект на диск С: в личную папку (на диске G: проект не развернется):
 ```bash
-git clone https://github.com/schepilovvy/vki.git
+git clone https://github.com/schepilovvy/vki
 ```
 
 2) Открыть в VSCode, в терминале VSCode выполнить:
