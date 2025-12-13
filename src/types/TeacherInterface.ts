@@ -9,5 +9,3 @@ interface TeacherInterface {
 };
 
 export default TeacherInterface;
-
-

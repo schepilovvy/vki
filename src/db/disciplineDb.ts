@@ -1,11 +1,12 @@
 import { Discipline } from './entity/Discipline.entity';
 import type DisciplineInterface from '@/types/DisciplineInterface';
 import AppDataSource, { initializeDataSource } from './AppDataSource';
+import type { Repository } from 'typeorm';
 
 /**
  * Получение репозитория дисциплин с проверкой соединения
  */
-const getDisciplineRepository = async () => {
+const getDisciplineRepository = async (): Promise<Repository<Discipline>> => {
   if (!AppDataSource.isInitialized) {
     await initializeDataSource();
   }
@@ -82,4 +83,3 @@ export const searchDisciplinesDb = async (searchQuery: string): Promise<Discipli
     .where('discipline.name LIKE :query', { query })
     .getMany();
 };
-

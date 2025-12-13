@@ -2,7 +2,7 @@ import { deleteTeacherDb } from '@/db/teacherDb';
 
 export async function DELETE(
   req: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ): Promise<Response> {
   const { id } = await params;
   const teacherId = parseInt(id, 10);
@@ -25,5 +25,3 @@ export async function DELETE(
     },
   });
 }
-
-

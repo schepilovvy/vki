@@ -47,5 +47,3 @@ const ProtectedRoute = ({ children, allowedRoles }: Props): React.ReactElement |
 };
 
 export default ProtectedRoute;
-
-

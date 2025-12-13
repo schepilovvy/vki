@@ -8,8 +8,8 @@ import type TeacherInterface from '@/types/TeacherInterface';
 
 interface TeachersHookInterface {
   teachers: TeacherInterface[];
-  deleteTeacherMutate: (teacherId: number) => void;
-  addTeacherMutate: (teacher: TeacherInterface) => void;
+  deleteTeacherMutate: (id: number) => void;
+  addTeacherMutate: (data: TeacherInterface) => void;
 }
 
 const useTeachers = (): TeachersHookInterface => {
@@ -103,5 +103,3 @@ const useTeachers = (): TeachersHookInterface => {
 };
 
 export default useTeachers;
-
-

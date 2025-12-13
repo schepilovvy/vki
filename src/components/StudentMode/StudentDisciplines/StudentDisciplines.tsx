@@ -83,26 +83,30 @@ const DisciplineItem = ({ discipline, isExpanded, onToggle }: DisciplineItemProp
       </div>
       {isExpanded && (
         <div className={styles.disciplineContent}>
-          {activeHomeworks.length === 0 ? (
-            <p className={styles.emptyHomeworks}>Нет заданий</p>
-          ) : (
-            <div className={styles.homeworksList}>
-              <h4>Домашние задания:</h4>
-              {activeHomeworks.map((homework: HomeworkInterface) => (
-                <div key={homework.id} className={styles.homeworkItem}>
-                  <div className={styles.homeworkTitle}>{homework.title}</div>
-                  {homework.description && (
-                    <div className={styles.homeworkDescription}>{homework.description}</div>
-                  )}
-                  {homework.dueDate && (
-                    <div className={styles.homeworkDueDate}>
-                      <strong>Срок сдачи:</strong> {formatDate(homework.dueDate)}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
+          {activeHomeworks.length === 0
+            ? (
+              <p className={styles.emptyHomeworks}>Нет заданий</p>
+            )
+            : (
+              <div className={styles.homeworksList}>
+                <h4>Домашние задания:</h4>
+                {activeHomeworks.map((homework: HomeworkInterface) => (
+                  <div key={homework.id} className={styles.homeworkItem}>
+                    <div className={styles.homeworkTitle}>{homework.title}</div>
+                    {homework.description && (
+                      <div className={styles.homeworkDescription}>{homework.description}</div>
+                    )}
+                    {homework.dueDate && (
+                      <div className={styles.homeworkDueDate}>
+                        <strong>Срок сдачи:</strong>
+                        {' '}
+                        {formatDate(homework.dueDate)}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
         </div>
       )}
     </div>
@@ -110,4 +114,3 @@ const DisciplineItem = ({ discipline, isExpanded, onToggle }: DisciplineItemProp
 };
 
 export default StudentDisciplines;
-

@@ -110,4 +110,3 @@ const useHomeworks = (disciplineId: number | null): HomeworksHookInterface => {
 };
 
 export default useHomeworks;
-

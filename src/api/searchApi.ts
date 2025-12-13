@@ -25,4 +25,3 @@ export const searchApi = async (type: SearchType, query: string): Promise<unknow
     return [];
   }
 };
-

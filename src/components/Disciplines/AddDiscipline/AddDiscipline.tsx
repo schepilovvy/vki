@@ -39,7 +39,9 @@ const AddDiscipline = ({ onAdd }: Props): React.ReactElement => {
           <option value="">Выберите группу</option>
           {groups.filter(g => !g.isDeleted).map(group => (
             <option key={group.id} value={group.id}>
-              {group.name} {group.course && `(${group.course} курс)`}
+              {group.name}
+              {' '}
+              {group.course && `(${group.course} курс)`}
             </option>
           ))}
         </select>
@@ -51,7 +53,11 @@ const AddDiscipline = ({ onAdd }: Props): React.ReactElement => {
           <option value="">Выберите преподавателя</option>
           {teachers.filter(t => !t.isDeleted).map(teacher => (
             <option key={teacher.id} value={teacher.id}>
-              {teacher.lastName} {teacher.firstName} {teacher.middleName}
+              {teacher.lastName}
+              {' '}
+              {teacher.firstName}
+              {' '}
+              {teacher.middleName}
             </option>
           ))}
         </select>
@@ -65,4 +71,3 @@ const AddDiscipline = ({ onAdd }: Props): React.ReactElement => {
 };
 
 export default AddDiscipline;
-

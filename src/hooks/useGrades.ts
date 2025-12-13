@@ -110,5 +110,3 @@ const useGrades = (disciplineId: number | null): GradesHookInterface => {
 };
 
 export default useGrades;
-
-

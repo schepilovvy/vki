@@ -102,7 +102,7 @@ const useGroups = (): GroupsHookInterface => {
    * Мутация обновления группы
    */
   const updateGroupMutate = useMutation({
-    mutationFn: async ({ groupId, groupFields }: { groupId: number; groupFields: Partial<Omit<GroupInterface, 'id'>> }) => 
+    mutationFn: async ({ groupId, groupFields }: { groupId: number; groupFields: Partial<Omit<GroupInterface, 'id'>> }) =>
       updateGroupApi(groupId, groupFields),
     onSuccess: async () => {
       console.log('updateGroupMutate  onSuccess');
@@ -115,7 +115,7 @@ const useGroups = (): GroupsHookInterface => {
     groups: data ?? [],
     addGroupMutate: addGroupMutate.mutate,
     deleteGroupMutate: deleteGroupMutate.mutate,
-    updateGroupMutate: (groupId: number, groupFields: Partial<Omit<GroupInterface, 'id'>>) => 
+    updateGroupMutate: (groupId: number, groupFields: Partial<Omit<GroupInterface, 'id'>>) =>
       updateGroupMutate.mutate({ groupId, groupFields }),
   };
 };

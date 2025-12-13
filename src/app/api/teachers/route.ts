@@ -26,7 +26,7 @@ export async function POST(req: Request): Promise<Response> {
     const body = await req.json();
     const { password, ...teacher } = body;
     delete teacher['id'];
-    
+
     if (!password) {
       return new Response(JSON.stringify({ error: 'Пароль обязателен' }), {
         status: 400,
@@ -57,4 +57,3 @@ export async function POST(req: Request): Promise<Response> {
     });
   }
 }
-

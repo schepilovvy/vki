@@ -63,4 +63,3 @@ const AddTeacher = ({ onAdd }: Props): React.ReactElement => {
 };
 
 export default AddTeacher;
-

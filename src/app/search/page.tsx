@@ -20,4 +20,3 @@ const SearchPage = (): React.ReactNode => (
 );
 
 export default SearchPage;
-

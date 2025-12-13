@@ -77,4 +77,3 @@ export const addDisciplineApi = async (discipline: DisciplineInterface): Promise
     throw err;
   }
 };
-

@@ -17,5 +17,3 @@ export class Homework {
   @Column({ default: '' })
   title?: string;
 }
-
-

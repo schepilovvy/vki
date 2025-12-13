@@ -1,4 +1,4 @@
-import { UserRole } from '@/db/entity/User.entity';
+import type { UserRole } from '@/db/entity/User.entity';
 
 interface UserInterface {
   id: number;
@@ -9,5 +9,3 @@ interface UserInterface {
 }
 
 export default UserInterface;
-
-

@@ -1,12 +1,13 @@
-import { User, UserRole } from './entity/User.entity';
+import { User, type UserRole } from './entity/User.entity';
 import type UserInterface from '@/types/UserInterface';
 import AppDataSource, { initializeDataSource } from './AppDataSource';
 import bcrypt from 'bcryptjs';
+import type { Repository } from 'typeorm';
 
 /**
  * Получение репозитория пользователей с проверкой соединения
  */
-const getUserRepository = async () => {
+const getUserRepository = async (): Promise<Repository<User>> => {
   if (!AppDataSource.isInitialized) {
     await initializeDataSource();
   }
@@ -53,7 +54,7 @@ export const createUserDb = async (
   teacherId?: number,
 ): Promise<UserInterface> => {
   const userRepository = await getUserRepository();
-  
+
   // Проверяем, существует ли пользователь с таким логином
   const existingUser = await getUserByLoginDb(login);
   if (existingUser) {
@@ -92,7 +93,7 @@ export const verifyUserDb = async (login: string, password: string): Promise<Use
   // Обрезаем пробелы для надежности
   const trimmedLogin = login.trim();
   const trimmedPassword = password.trim();
-  
+
   const user = await getUserByLoginDb(trimmedLogin);
   if (!user) {
     return null;
@@ -111,5 +112,3 @@ export const verifyUserDb = async (login: string, password: string): Promise<Use
     teacherId: user.teacherId,
   };
 };
-
-

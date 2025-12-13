@@ -43,7 +43,9 @@ const AddGroup = ({ onAdd }: Props): React.ReactElement => {
           <option value="">Выберите курс</option>
           {[1, 2, 3, 4].map(course => (
             <option key={course} value={course}>
-              {course} курс
+              {course}
+              {' '}
+              курс
             </option>
           ))}
         </select>
@@ -67,7 +69,11 @@ const AddGroup = ({ onAdd }: Props): React.ReactElement => {
           <option value="">Выберите куратора</option>
           {teachers.filter(t => !t.isDeleted).map(teacher => (
             <option key={teacher.id} value={teacher.id}>
-              {teacher.lastName} {teacher.firstName} {teacher.middleName}
+              {teacher.lastName}
+              {' '}
+              {teacher.firstName}
+              {' '}
+              {teacher.middleName}
             </option>
           ))}
         </select>
@@ -81,4 +87,3 @@ const AddGroup = ({ onAdd }: Props): React.ReactElement => {
 };
 
 export default AddGroup;
-

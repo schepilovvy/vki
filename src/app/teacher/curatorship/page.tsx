@@ -19,5 +19,3 @@ const TeacherCuratorshipPage = (): React.ReactNode => (
 );
 
 export default TeacherCuratorshipPage;
-
-

@@ -8,6 +8,7 @@ import type StudentInterface from '@/types/StudentInterface';
 
 interface StudentsHookInterface {
   students: StudentInterface[];
+  isLoading: boolean;
   deleteStudentMutate: (studentId: number) => void;
   addStudentMutate: (student: StudentInterface) => void;
 }
@@ -125,6 +126,7 @@ const useStudents = (): StudentsHookInterface => {
 
   return {
     students: data ?? [],
+    isLoading,
     deleteStudentMutate: deleteStudentMutate.mutate,
     addStudentMutate: addStudentMutate.mutate,
   };

@@ -9,5 +9,3 @@ interface HomeworkInterface {
 };
 
 export default HomeworkInterface;
-
-

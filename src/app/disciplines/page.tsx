@@ -20,4 +20,3 @@ const DisciplinesPage = (): React.ReactNode => (
 );
 
 export default DisciplinesPage;
-

@@ -57,4 +57,3 @@ const Teachers = (): React.ReactElement => {
 };
 
 export default Teachers;
-

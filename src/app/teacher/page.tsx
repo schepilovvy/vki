@@ -5,4 +5,3 @@ const TeacherPage = (): never => {
 };
 
 export default TeacherPage;
-

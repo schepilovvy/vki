@@ -32,22 +32,22 @@ const Login = (): React.ReactElement => {
     try {
       console.log('Attempting login with:', formData.login);
       await login(formData.login, formData.password);
-      
+
       // Небольшая задержка для обновления состояния
       setTimeout(() => {
         // Получаем роль пользователя из localStorage
         const userStr = localStorage.getItem('user');
         if (userStr) {
-          const user = JSON.parse(userStr);
-          console.log('User role:', user.role);
+          const userData = JSON.parse(userStr);
+          console.log('User role:', userData.role);
           // Перенаправляем в зависимости от роли
-          if (user.role === 'admin') {
+          if (userData.role === 'admin') {
             router.push('/');
           }
-          else if (user.role === 'teacher') {
+          else if (userData.role === 'teacher') {
             router.push('/teacher/curatorship');
           }
-          else if (user.role === 'student') {
+          else if (userData.role === 'student') {
             router.push('/student/group');
           }
           else {
@@ -96,7 +96,7 @@ const Login = (): React.ReactElement => {
               id="login"
               type="text"
               value={formData.login}
-              onChange={(e) => setFormData({ ...formData, login: e.target.value })}
+              onChange={e => setFormData({ ...formData, login: e.target.value })}
               required
               disabled={isLoading}
             />
@@ -107,7 +107,7 @@ const Login = (): React.ReactElement => {
               id="password"
               type="password"
               value={formData.password}
-              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+              onChange={e => setFormData({ ...formData, password: e.target.value })}
               required
               disabled={isLoading}
             />
@@ -123,4 +123,3 @@ const Login = (): React.ReactElement => {
 };
 
 export default Login;
-

@@ -24,7 +24,7 @@ export async function POST(req: Request): Promise<Response> {
     // Проверяем, существует ли студент
     const students = await getStudentsDb();
     const student = students.find(s => s.id === studentId && !s.isDeleted);
-    
+
     if (!student) {
       return new Response(JSON.stringify({ error: 'Студент с таким ID не найден' }), {
         status: 404,
@@ -49,11 +49,11 @@ export async function POST(req: Request): Promise<Response> {
       await initializeDataSource();
     }
     const userRepository = AppDataSource.getRepository(User);
-    
+
     user.studentId = studentId;
     await userRepository.save(user);
 
-    return new Response(JSON.stringify({ 
+    return new Response(JSON.stringify({
       message: 'Связь успешно обновлена',
       user: {
         id: user.id,
@@ -80,5 +80,3 @@ export async function POST(req: Request): Promise<Response> {
     });
   }
 }
-
-

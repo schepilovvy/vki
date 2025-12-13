@@ -20,7 +20,7 @@ const AddHomeworkModal = ({ disciplineId, disciplineName, onAdd, onClose }: Prop
     formState: { errors },
   } = useForm<FormFields>();
 
-  const onSubmit: SubmitHandler<FormFields> = homeworkForm => {
+  const onSubmit: SubmitHandler<FormFields> = (homeworkForm) => {
     onAdd({
       ...homeworkForm,
       disciplineId,
@@ -29,13 +29,16 @@ const AddHomeworkModal = ({ disciplineId, disciplineName, onAdd, onClose }: Prop
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
-      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+      <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
         <div className={styles.modalHeader}>
           <h2>Назначить домашнее задание</h2>
           <button className={styles.closeButton} onClick={onClose}>×</button>
         </div>
         <div className={styles.modalBody}>
-          <p className={styles.disciplineName}>Дисциплина: <strong>{disciplineName}</strong></p>
+          <p className={styles.disciplineName}>
+            Дисциплина:
+            <strong>{disciplineName}</strong>
+          </p>
           <form onSubmit={handleSubmit(onSubmit)}>
             <input
               placeholder="Название задания (необязательно)"
@@ -71,5 +74,3 @@ const AddHomeworkModal = ({ disciplineId, disciplineName, onAdd, onClose }: Prop
 };
 
 export default AddHomeworkModal;
-
-

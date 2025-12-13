@@ -14,8 +14,8 @@ const StudentGroupInfo = ({ groupId }: Props): React.ReactElement => {
   const { students } = useStudents();
   const group = groups.find(g => g.id === groupId && !g.isDeleted);
 
-  const groupStudents = students.filter((student: StudentInterface) => 
-    !student.isDeleted && student.groupId === groupId
+  const groupStudents = students.filter((student: StudentInterface) =>
+    !student.isDeleted && student.groupId === groupId,
   );
 
   if (!group) {
@@ -32,33 +32,42 @@ const StudentGroupInfo = ({ groupId }: Props): React.ReactElement => {
         <div className={styles.groupName}>{group.name}</div>
         {group.course && (
           <div className={styles.groupInfo}>
-            <strong>Курс:</strong> {group.course}
+            <strong>Курс:</strong>
+            {' '}
+            {group.course}
           </div>
         )}
         {group.specialty && (
           <div className={styles.groupInfo}>
-            <strong>Специальность:</strong> {group.specialty}
+            <strong>Специальность:</strong>
+            {' '}
+            {group.specialty}
           </div>
         )}
       </div>
 
       <div className={styles.studentsSection}>
         <h3>Список студентов группы</h3>
-        {groupStudents.length === 0 ? (
-          <p className={styles.emptyStudents}>В группе нет студентов</p>
-        ) : (
-          <div className={styles.studentsList}>
-            {groupStudents.map((student: StudentInterface) => (
-              <div key={student.id} className={styles.studentItem}>
-                {student.lastName} {student.firstName} {student.middleName}
-              </div>
-            ))}
-          </div>
-        )}
+        {groupStudents.length === 0
+          ? (
+            <p className={styles.emptyStudents}>В группе нет студентов</p>
+          )
+          : (
+            <div className={styles.studentsList}>
+              {groupStudents.map((student: StudentInterface) => (
+                <div key={student.id} className={styles.studentItem}>
+                  {student.lastName}
+                  {' '}
+                  {student.firstName}
+                  {' '}
+                  {student.middleName}
+                </div>
+              ))}
+            </div>
+          )}
       </div>
     </div>
   );
 };
 
 export default StudentGroupInfo;
-

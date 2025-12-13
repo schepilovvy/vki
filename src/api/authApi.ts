@@ -41,7 +41,7 @@ export const getCurrentUserApi = async (): Promise<JWTPayload | null> => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API}auth/me`, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -66,4 +66,3 @@ export const logoutApi = (): void => {
   localStorage.removeItem('token');
   localStorage.removeItem('user');
 };
-

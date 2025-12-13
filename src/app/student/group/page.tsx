@@ -19,5 +19,3 @@ const StudentGroupPage = (): React.ReactNode => (
 );
 
 export default StudentGroupPage;
-
-

@@ -19,5 +19,3 @@ const TeacherDisciplinesPage = (): React.ReactNode => (
 );
 
 export default TeacherDisciplinesPage;
-
-

@@ -61,4 +61,3 @@ export const addTeacherApi = async (teacher: TeacherInterface & { password?: str
     throw err;
   }
 };
-

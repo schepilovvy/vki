@@ -46,7 +46,7 @@ const StudentMode = ({ activeTab = 'group' }: Props): React.ReactElement => {
   };
 
   const selectedStudent = students.find(s => s.id === selectedStudentId && !s.isDeleted);
-  
+
   // Отладочная информация
   useEffect(() => {
     if (selectedStudentId && !selectedStudent) {
@@ -82,7 +82,11 @@ const StudentMode = ({ activeTab = 'group' }: Props): React.ReactElement => {
           <div className={styles.studentInfo}>
             <h1>Студент</h1>
             <p className={styles.studentName}>
-              {selectedStudent.lastName} {selectedStudent.firstName} {selectedStudent.middleName}
+              {selectedStudent.lastName}
+              {' '}
+              {selectedStudent.firstName}
+              {' '}
+              {selectedStudent.middleName}
             </p>
           </div>
 
@@ -103,8 +107,14 @@ const StudentMode = ({ activeTab = 'group' }: Props): React.ReactElement => {
       {selectedStudentId && !selectedStudent && (
         <div className={styles.error}>
           <h3>Студент не найден</h3>
-          <p>ID студента из токена: {selectedStudentId}</p>
-          <p>Всего студентов в системе: {students.length}</p>
+          <p>
+            ID студента из токена:
+            {selectedStudentId}
+          </p>
+          <p>
+            Всего студентов в системе:
+            {students.length}
+          </p>
           <p>Возможные причины:</p>
           <ul>
             <li>Студент был удален из системы</li>
@@ -119,4 +129,3 @@ const StudentMode = ({ activeTab = 'group' }: Props): React.ReactElement => {
 };
 
 export default StudentMode;
-

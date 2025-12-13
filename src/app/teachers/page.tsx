@@ -20,4 +20,3 @@ const TeachersPage = (): React.ReactNode => (
 );
 
 export default TeachersPage;
-

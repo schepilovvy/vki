@@ -5,5 +5,3 @@ export const SPECIALTIES = [
 ] as const;
 
 export type Specialty = typeof SPECIALTIES[number];
-
-

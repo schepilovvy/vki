@@ -17,5 +17,3 @@ export class Teacher {
   @Column({ default: '' })
   contacts?: string;
 }
-
-

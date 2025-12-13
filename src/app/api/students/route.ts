@@ -1,5 +1,4 @@
 import { getStudentsDb, addStudentDb } from '@/db/studentDb';
-import { type NextApiRequest } from 'next/types';
 
 export async function GET(): Promise<Response> {
   try {
@@ -27,7 +26,7 @@ export async function POST(req: Request): Promise<Response> {
     const body = await req.json();
     const { password, ...student } = body;
     delete student['id'];
-    
+
     if (!password) {
       return new Response(JSON.stringify({ error: 'Пароль обязателен' }), {
         status: 400,

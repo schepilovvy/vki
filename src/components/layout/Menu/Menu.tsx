@@ -70,7 +70,11 @@ const Menu = (): React.ReactElement => {
         </>
       )}
       <div className={styles.logoutButton}>
-        <button onClick={handleLogout}>Выход ({user?.login})</button>
+        <button onClick={handleLogout}>
+          Выход (
+          {user?.login}
+          )
+        </button>
       </div>
     </nav>
   );

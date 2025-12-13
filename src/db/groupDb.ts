@@ -1,11 +1,12 @@
 import { Group } from './entity/Group.entity';
 import AppDataSource, { initializeDataSource } from './AppDataSource';
 import type GroupInterface from '@/types/GroupInterface';
+import type { Repository } from 'typeorm';
 
 /**
  * Получение репозитория групп с проверкой соединения
  */
-const getGroupRepository = async () => {
+const getGroupRepository = async (): Promise<Repository<Group>> => {
   if (!AppDataSource.isInitialized) {
     await initializeDataSource();
   }

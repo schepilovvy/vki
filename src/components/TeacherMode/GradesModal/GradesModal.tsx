@@ -26,8 +26,8 @@ const GradesModal = ({ disciplineId, disciplineName, groupId, onClose }: Props):
   });
 
   // Получаем студентов из группы
-  const groupStudents = students.filter((student: StudentInterface) => 
-    !student.isDeleted && student.groupId === groupId
+  const groupStudents = students.filter((student: StudentInterface) =>
+    !student.isDeleted && student.groupId === groupId,
   );
 
   const handleSubmitGrade = (studentId: number): void => {
@@ -62,8 +62,8 @@ const GradesModal = ({ disciplineId, disciplineName, groupId, onClose }: Props):
   };
 
   const getStudentGrades = (studentId: number): GradeInterface[] => {
-    return grades.filter((grade: GradeInterface) => 
-      !grade.isDeleted && grade.studentId === studentId
+    return grades.filter((grade: GradeInterface) =>
+      !grade.isDeleted && grade.studentId === studentId,
     );
   };
 
@@ -101,104 +101,118 @@ const GradesModal = ({ disciplineId, disciplineName, groupId, onClose }: Props):
 
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
-      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+      <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
         <div className={styles.modalHeader}>
-          <h2>Оценки по дисциплине: {disciplineName}</h2>
+          <h2>
+            Оценки по дисциплине:
+            {disciplineName}
+          </h2>
           <button className={styles.closeButton} onClick={onClose}>×</button>
         </div>
         <div className={styles.modalBody}>
-          {groupStudents.length === 0 ? (
-            <p className={styles.empty}>В группе нет студентов</p>
-          ) : (
-            <div className={styles.studentsList}>
-              {groupStudents.map((student: StudentInterface) => {
-                const studentGrades = getStudentGrades(student.id);
-                const isSelected = selectedStudentId === student.id;
-                return (
-                  <div key={student.id} className={styles.studentItem}>
-                    <div className={styles.studentInfo}>
-                      <div className={styles.studentName}>
-                        {student.lastName} {student.firstName} {student.middleName}
-                      </div>
-                      {studentGrades.length > 0 && (
-                        <div className={styles.gradesList}>
-                          <strong>Оценки:</strong>
-                          {studentGrades.map((grade: GradeInterface) => (
-                            <span
-                              key={grade.id}
-                              className={styles.gradeBadge}
-                              style={{ backgroundColor: getGradeColor(grade.grade) }}
-                            >
-                              {grade.grade}
-                              {grade.date && (
-                                <span className={styles.gradeDate}>
-                                  {' '}({formatDate(grade.date)})
-                                </span>
-                              )}
-                              <button
-                                className={styles.deleteGradeButton}
-                                onClick={() => handleDeleteGrade(grade.id)}
-                                title="Удалить оценку"
+          {groupStudents.length === 0
+            ? (
+              <p className={styles.empty}>В группе нет студентов</p>
+            )
+            : (
+              <div className={styles.studentsList}>
+                {groupStudents.map((student: StudentInterface) => {
+                  const studentGrades = getStudentGrades(student.id);
+                  const isSelected = selectedStudentId === student.id;
+                  return (
+                    <div key={student.id} className={styles.studentItem}>
+                      <div className={styles.studentInfo}>
+                        <div className={styles.studentName}>
+                          {student.lastName}
+                          {' '}
+                          {student.firstName}
+                          {' '}
+                          {student.middleName}
+                        </div>
+                        {studentGrades.length > 0 && (
+                          <div className={styles.gradesList}>
+                            <strong>Оценки:</strong>
+                            {studentGrades.map((grade: GradeInterface) => (
+                              <span
+                                key={grade.id}
+                                className={styles.gradeBadge}
+                                style={{ backgroundColor: getGradeColor(grade.grade) }}
                               >
-                                ×
-                              </button>
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                    {isSelected ? (
-                      <div className={styles.gradeForm}>
-                        <select
-                          value={gradeValue}
-                          onChange={(e) => setGradeValue(e.target.value)}
-                          className={styles.gradeSelect}
-                        >
-                          <option value="">Выберите оценку</option>
-                          {[2, 3, 4, 5].map(g => (
-                            <option key={g} value={g}>{g}</option>
-                          ))}
-                        </select>
-                        <input
-                          type="date"
-                          value={gradeDate}
-                          onChange={(e) => setGradeDate(e.target.value)}
-                          className={styles.dateInput}
-                        />
-                        <div className={styles.formActions}>
-                          <button
-                            onClick={() => handleSubmitGrade(student.id)}
-                            className={styles.submitButton}
-                            disabled={!gradeValue || !gradeDate}
-                          >
-                            Поставить
-                          </button>
-                          <button
-                            onClick={() => {
-                              setSelectedStudentId(null);
-                              setGradeValue('');
-                              const today = new Date();
-                              setGradeDate(today.toISOString().split('T')[0]);
-                            }}
-                            className={styles.cancelButton}
-                          >
-                            Отмена
-                          </button>
-                        </div>
+                                {grade.grade}
+                                {grade.date && (
+                                  <span className={styles.gradeDate}>
+                                    {' '}
+                                    (
+                                    {formatDate(grade.date)}
+                                    )
+                                  </span>
+                                )}
+                                <button
+                                  className={styles.deleteGradeButton}
+                                  onClick={() => handleDeleteGrade(grade.id)}
+                                  title="Удалить оценку"
+                                >
+                                  ×
+                                </button>
+                              </span>
+                            ))}
+                          </div>
+                        )}
                       </div>
-                    ) : (
-                      <button
-                        onClick={() => setSelectedStudentId(student.id)}
-                        className={styles.addGradeButton}
-                      >
-                        Поставить оценку
-                      </button>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          )}
+                      {isSelected
+                        ? (
+                          <div className={styles.gradeForm}>
+                            <select
+                              value={gradeValue}
+                              onChange={e => setGradeValue(e.target.value)}
+                              className={styles.gradeSelect}
+                            >
+                              <option value="">Выберите оценку</option>
+                              {[2, 3, 4, 5].map(g => (
+                                <option key={g} value={g}>{g}</option>
+                              ))}
+                            </select>
+                            <input
+                              type="date"
+                              value={gradeDate}
+                              onChange={e => setGradeDate(e.target.value)}
+                              className={styles.dateInput}
+                            />
+                            <div className={styles.formActions}>
+                              <button
+                                onClick={() => handleSubmitGrade(student.id)}
+                                className={styles.submitButton}
+                                disabled={!gradeValue || !gradeDate}
+                              >
+                                Поставить
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setSelectedStudentId(null);
+                                  setGradeValue('');
+                                  const today = new Date();
+                                  setGradeDate(today.toISOString().split('T')[0]);
+                                }}
+                                className={styles.cancelButton}
+                              >
+                                Отмена
+                              </button>
+                            </div>
+                          </div>
+                        )
+                        : (
+                          <button
+                            onClick={() => setSelectedStudentId(student.id)}
+                            className={styles.addGradeButton}
+                          >
+                            Поставить оценку
+                          </button>
+                        )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
         </div>
       </div>
     </div>
@@ -206,4 +220,3 @@ const GradesModal = ({ disciplineId, disciplineName, groupId, onClose }: Props):
 };
 
 export default GradesModal;
-

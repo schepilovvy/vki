@@ -5,4 +5,3 @@ const StudentPage = (): never => {
 };
 
 export default StudentPage;
-

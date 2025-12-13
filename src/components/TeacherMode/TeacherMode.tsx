@@ -37,7 +37,7 @@ const TeacherMode = ({ activeTab = 'curatorship' }: Props): React.ReactElement =
   };
 
   const { user } = useAuth();
-  
+
   // Если у пользователя есть teacherId в токене, используем его
   useEffect(() => {
     if (user?.teacherId && !selectedTeacherId) {
@@ -62,7 +62,11 @@ const TeacherMode = ({ activeTab = 'curatorship' }: Props): React.ReactElement =
           <div className={styles.teacherInfo}>
             <h1>Преподаватель</h1>
             <p className={styles.teacherName}>
-              {selectedTeacher.lastName} {selectedTeacher.firstName} {selectedTeacher.middleName}
+              {selectedTeacher.lastName}
+              {' '}
+              {selectedTeacher.firstName}
+              {' '}
+              {selectedTeacher.middleName}
             </p>
           </div>
 
@@ -87,4 +91,3 @@ const TeacherMode = ({ activeTab = 'curatorship' }: Props): React.ReactElement =
 };
 
 export default TeacherMode;
-

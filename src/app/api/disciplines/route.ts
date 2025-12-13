@@ -1,5 +1,5 @@
 import { getDisciplinesDb, addDisciplineDb } from '@/db/disciplineDb';
-import { type NextApiRequest } from 'next/types';
+import { type NextRequest } from 'next/server';
 
 export async function GET(): Promise<Response> {
   try {
@@ -22,7 +22,7 @@ export async function GET(): Promise<Response> {
   }
 }
 
-export async function POST(req: NextApiRequest): Promise<Response> {
+export async function POST(req: NextRequest): Promise<Response> {
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -49,5 +49,3 @@ export async function POST(req: NextApiRequest): Promise<Response> {
     });
   }
 }
-
-

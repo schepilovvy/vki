@@ -45,7 +45,7 @@ const Search = (): React.ReactElement => {
     const gradesByDiscipline = activeGrades.reduce((acc, grade) => {
       const discipline = disciplines.find(d => d.id === grade.disciplineId);
       const disciplineName = discipline?.name || 'Неизвестная дисциплина';
-      
+
       if (!acc[disciplineName]) {
         acc[disciplineName] = [];
       }
@@ -84,15 +84,20 @@ const Search = (): React.ReactElement => {
         <h4>Оценки:</h4>
         {Object.entries(gradesByDiscipline).map(([disciplineName, disciplineGrades]) => (
           <div key={disciplineName} className={styles.disciplineGrades}>
-            <strong>{disciplineName}:</strong>
+            <strong>
+              {disciplineName}
+              :
+            </strong>
             <div className={styles.gradesList}>
-              {disciplineGrades.map((grade) => (
+              {disciplineGrades.map(grade => (
                 <span
                   key={grade.id}
                   className={styles.gradeBadge}
                   style={{ backgroundColor: getGradeColor(grade.grade) }}
                 >
-                  {grade.grade} {grade.date && `(${formatDate(grade.date)})`}
+                  {grade.grade}
+                  {' '}
+                  {grade.date && `(${formatDate(grade.date)})`}
                 </span>
               ))}
             </div>
@@ -108,12 +113,35 @@ const Search = (): React.ReactElement => {
       <div key={student.id} className={styles.resultItem}>
         <div className={styles.resultHeader}>
           <strong>Студент</strong>
-          <span className={styles.resultId}>ID: {student.id}</span>
+          <span className={styles.resultId}>
+            ID:
+            {student.id}
+          </span>
         </div>
         <div className={styles.resultContent}>
-          <p><strong>ФИО:</strong> {student.lastName} {student.firstName} {student.middleName}</p>
-          {group && <p><strong>Группа:</strong> {group.name}</p>}
-          {student.contacts && <p><strong>Контакты:</strong> {student.contacts}</p>}
+          <p>
+            <strong>ФИО:</strong>
+            {' '}
+            {student.lastName}
+            {' '}
+            {student.firstName}
+            {' '}
+            {student.middleName}
+          </p>
+          {group && (
+            <p>
+              <strong>Группа:</strong>
+              {' '}
+              {group.name}
+            </p>
+          )}
+          {student.contacts && (
+            <p>
+              <strong>Контакты:</strong>
+              {' '}
+              {student.contacts}
+            </p>
+          )}
           <StudentGrades studentId={student.id} />
         </div>
       </div>
@@ -121,33 +149,61 @@ const Search = (): React.ReactElement => {
   };
 
   const renderTeacherResult = (teacher: TeacherInterface): React.ReactElement => {
-    const teacherDisciplines = disciplines.filter((d: DisciplineInterface) => 
-      !d.isDeleted && d.teacherId === teacher.id
+    const teacherDisciplines = disciplines.filter((d: DisciplineInterface) =>
+      !d.isDeleted && d.teacherId === teacher.id,
     );
-    const curatorGroups = groups.filter((g: GroupInterface) => 
-      !g.isDeleted && g.teacherId === teacher.id
+    const curatorGroups = groups.filter((g: GroupInterface) =>
+      !g.isDeleted && g.teacherId === teacher.id,
     );
 
     return (
       <div key={teacher.id} className={styles.resultItem}>
         <div className={styles.resultHeader}>
           <strong>Преподаватель</strong>
-          <span className={styles.resultId}>ID: {teacher.id}</span>
+          <span className={styles.resultId}>
+            ID:
+            {teacher.id}
+          </span>
         </div>
         <div className={styles.resultContent}>
-          <p><strong>ФИО:</strong> {teacher.lastName} {teacher.firstName} {teacher.middleName}</p>
-          {teacher.contacts && <p><strong>Контакты:</strong> {teacher.contacts}</p>}
-          
+          <p>
+            <strong>ФИО:</strong>
+            {' '}
+            {teacher.lastName}
+            {' '}
+            {teacher.firstName}
+            {' '}
+            {teacher.middleName}
+          </p>
+          {teacher.contacts && (
+            <p>
+              <strong>Контакты:</strong>
+              {' '}
+              {teacher.contacts}
+            </p>
+          )}
+
           {teacherDisciplines.length > 0 && (
             <div className={styles.section}>
-              <h4>Дисциплины ({teacherDisciplines.length}):</h4>
+              <h4>
+                Дисциплины (
+                {teacherDisciplines.length}
+                ):
+              </h4>
               <ul className={styles.list}>
                 {teacherDisciplines.map((discipline: DisciplineInterface) => {
                   const group = groups.find(g => g.id === discipline.groupId);
                   return (
                     <li key={discipline.id}>
                       {discipline.name}
-                      {group && <span className={styles.groupTag}> ({group.name})</span>}
+                      {group && (
+                        <span className={styles.groupTag}>
+                          {' '}
+                          (
+                          {group.name}
+                          )
+                        </span>
+                      )}
                     </li>
                   );
                 })}
@@ -157,12 +213,23 @@ const Search = (): React.ReactElement => {
 
           {curatorGroups.length > 0 && (
             <div className={styles.section}>
-              <h4>Кураторские группы ({curatorGroups.length}):</h4>
+              <h4>
+                Кураторские группы (
+                {curatorGroups.length}
+                ):
+              </h4>
               <ul className={styles.list}>
                 {curatorGroups.map((group: GroupInterface) => (
                   <li key={group.id}>
                     {group.name}
-                    {group.course && <span className={styles.groupTag}> (Курс {group.course})</span>}
+                    {group.course && (
+                      <span className={styles.groupTag}>
+                        {' '}
+                        (Курс
+                        {group.course}
+                        )
+                      </span>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -183,14 +250,41 @@ const Search = (): React.ReactElement => {
       <div key={group.id} className={styles.resultItem}>
         <div className={styles.resultHeader}>
           <strong>Группа</strong>
-          <span className={styles.resultId}>ID: {group.id}</span>
+          <span className={styles.resultId}>
+            ID:
+            {group.id}
+          </span>
         </div>
         <div className={styles.resultContent}>
-          <p><strong>Название:</strong> {group.name}</p>
-          {group.course && <p><strong>Курс:</strong> {group.course}</p>}
-          {group.specialty && <p><strong>Специальность:</strong> {group.specialty}</p>}
+          <p>
+            <strong>Название:</strong>
+            {' '}
+            {group.name}
+          </p>
+          {group.course && (
+            <p>
+              <strong>Курс:</strong>
+              {' '}
+              {group.course}
+            </p>
+          )}
+          {group.specialty && (
+            <p>
+              <strong>Специальность:</strong>
+              {' '}
+              {group.specialty}
+            </p>
+          )}
           {curator && (
-            <p><strong>Куратор:</strong> {curator.lastName} {curator.firstName} {curator.middleName}</p>
+            <p>
+              <strong>Куратор:</strong>
+              {' '}
+              {curator.lastName}
+              {' '}
+              {curator.firstName}
+              {' '}
+              {curator.middleName}
+            </p>
           )}
         </div>
       </div>
@@ -204,13 +298,34 @@ const Search = (): React.ReactElement => {
       <div key={discipline.id} className={styles.resultItem}>
         <div className={styles.resultHeader}>
           <strong>Дисциплина</strong>
-          <span className={styles.resultId}>ID: {discipline.id}</span>
+          <span className={styles.resultId}>
+            ID:
+            {discipline.id}
+          </span>
         </div>
         <div className={styles.resultContent}>
-          <p><strong>Название:</strong> {discipline.name}</p>
-          {group && <p><strong>Группа:</strong> {group.name}</p>}
+          <p>
+            <strong>Название:</strong>
+            {' '}
+            {discipline.name}
+          </p>
+          {group && (
+            <p>
+              <strong>Группа:</strong>
+              {' '}
+              {group.name}
+            </p>
+          )}
           {teacher && (
-            <p><strong>Преподаватель:</strong> {teacher.lastName} {teacher.firstName} {teacher.middleName}</p>
+            <p>
+              <strong>Преподаватель:</strong>
+              {' '}
+              {teacher.lastName}
+              {' '}
+              {teacher.firstName}
+              {' '}
+              {teacher.middleName}
+            </p>
           )}
         </div>
       </div>
@@ -232,7 +347,11 @@ const Search = (): React.ReactElement => {
 
     return (
       <div className={styles.results}>
-        <h3>Результаты поиска ({searchResults.length})</h3>
+        <h3>
+          Результаты поиска (
+          {searchResults.length}
+          )
+        </h3>
         {searchResults.map((result: unknown) => {
           switch (searchType) {
             case 'student':
@@ -255,7 +374,7 @@ const Search = (): React.ReactElement => {
     <div className={styles.Search}>
       <div className={styles.searchForm}>
         <h2>Поиск</h2>
-        
+
         <div className={styles.formRow}>
           <label htmlFor="searchType">Тип:</label>
           <select
@@ -280,7 +399,7 @@ const Search = (): React.ReactElement => {
             id="searchQuery"
             type="text"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={e => setSearchQuery(e.target.value)}
             placeholder={
               searchType === 'student' || searchType === 'teacher'
                 ? 'Введите ФИО...'
@@ -297,4 +416,3 @@ const Search = (): React.ReactElement => {
 };
 
 export default Search;
-

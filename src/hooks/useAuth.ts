@@ -52,8 +52,8 @@ const useAuth = (): AuthHookInterface => {
     },
   });
 
-  const login = async (login: string, password: string): Promise<void> => {
-    await loginMutation.mutateAsync({ login, password });
+  const login = async (loginParam: string, password: string): Promise<void> => {
+    await loginMutation.mutateAsync({ login: loginParam, password });
   };
 
   const logout = (): void => {
@@ -69,11 +69,10 @@ const useAuth = (): AuthHookInterface => {
     isLoading: isLoading || loginMutation.isPending,
     login,
     logout,
-    refetch: () => {
+    refetch: (): void => {
       refetch();
     },
   };
 };
 
 export default useAuth;
-

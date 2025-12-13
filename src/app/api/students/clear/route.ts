@@ -8,7 +8,7 @@ export async function DELETE(): Promise<Response> {
   try {
     const deletedCount = await deleteAllStudentsDb();
 
-    return new Response(JSON.stringify({ 
+    return new Response(JSON.stringify({
       message: 'Все студенты успешно удалены',
       deletedCount,
     }), {
@@ -29,5 +29,3 @@ export async function DELETE(): Promise<Response> {
     });
   }
 }
-
-

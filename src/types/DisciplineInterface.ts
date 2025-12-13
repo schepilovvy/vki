@@ -8,5 +8,3 @@ interface DisciplineInterface {
 };
 
 export default DisciplineInterface;
-
-

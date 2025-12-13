@@ -77,4 +77,3 @@ export const addGradeApi = async (grade: GradeInterface): Promise<GradeInterface
     throw err;
   }
 };
-

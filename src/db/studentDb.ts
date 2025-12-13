@@ -4,11 +4,12 @@ import getRandomFio from '@/utils/getRandomFio';
 import AppDataSource, { initializeDataSource } from './AppDataSource';
 import { createUserDb } from './userDb';
 import { User, UserRole } from './entity/User.entity';
+import type { Repository } from 'typeorm';
 
 /**
  * Получение репозитория студентов с проверкой соединения
  */
-const getStudentRepository = async () => {
+const getStudentRepository = async (): Promise<Repository<Student>> => {
   if (!AppDataSource.isInitialized) {
     await initializeDataSource();
   }
@@ -42,7 +43,7 @@ export const deleteStudentDb = async (studentId: number): Promise<number> => {
 export const deleteAllStudentsDb = async (): Promise<number> => {
   const studentRepository = await getStudentRepository();
   const result = await studentRepository.delete({});
-  
+
   // Также удаляем связанных пользователей
   if (!AppDataSource.isInitialized) {
     await initializeDataSource();
@@ -79,10 +80,10 @@ const isFioUnique = async (lastName: string, firstName: string, middleName: stri
   const { getTeachersDb } = await import('./teacherDb');
   const teachers = await getTeachersDb();
   const existingTeacher = teachers.find(
-    t => !t.isDeleted && 
-    t.lastName === lastName && 
-    t.firstName === firstName && 
-    t.middleName === middleName
+    t => !t.isDeleted
+      && t.lastName === lastName
+      && t.firstName === firstName
+      && t.middleName === middleName,
   );
 
   return !existingTeacher;

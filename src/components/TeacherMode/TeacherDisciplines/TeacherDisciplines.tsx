@@ -19,8 +19,8 @@ const TeacherDisciplines = ({ teacherId }: Props): React.ReactElement => {
   const [selectedDisciplineId, setSelectedDisciplineId] = useState<number | null>(null);
   const [gradesModalDiscipline, setGradesModalDiscipline] = useState<{ id: number; name: string; groupId: number } | null>(null);
 
-  const teacherDisciplines = disciplines.filter((discipline: DisciplineInterface) => 
-    !discipline.isDeleted && discipline.teacherId === teacherId
+  const teacherDisciplines = disciplines.filter((discipline: DisciplineInterface) =>
+    !discipline.isDeleted && discipline.teacherId === teacherId,
   );
 
   // Используем хук для добавления домашних заданий
@@ -73,13 +73,13 @@ const TeacherDisciplines = ({ teacherId }: Props): React.ReactElement => {
           const group = groups.find(g => g.id === discipline.groupId);
           return (
             <div key={discipline.id} className={styles.disciplineItem}>
-              <div 
+              <div
                 className={styles.disciplineHeader}
                 onClick={() => handleDisciplineClick(discipline)}
               >
                 <h3 className={styles.disciplineTitle}>{discipline.name}</h3>
                 <div className={styles.actions}>
-                  <button 
+                  <button
                     className={styles.gradesButton}
                     onClick={(e) => {
                       e.stopPropagation();
@@ -92,7 +92,7 @@ const TeacherDisciplines = ({ teacherId }: Props): React.ReactElement => {
                   >
                     Оценки
                   </button>
-                  <button 
+                  <button
                     className={styles.addHomeworkButton}
                     onClick={(e) => {
                       e.stopPropagation();
@@ -105,9 +105,25 @@ const TeacherDisciplines = ({ teacherId }: Props): React.ReactElement => {
               </div>
               {group && (
                 <div className={styles.groupInfo}>
-                  <p><strong>Группа:</strong> {group.name}</p>
-                  {group.course && <p><strong>Курс:</strong> {group.course}</p>}
-                  {group.specialty && <p><strong>Специальность:</strong> {group.specialty}</p>}
+                  <p>
+                    <strong>Группа:</strong>
+                    {' '}
+                    {group.name}
+                  </p>
+                  {group.course && (
+                    <p>
+                      <strong>Курс:</strong>
+                      {' '}
+                      {group.course}
+                    </p>
+                  )}
+                  {group.specialty && (
+                    <p>
+                      <strong>Специальность:</strong>
+                      {' '}
+                      {group.specialty}
+                    </p>
+                  )}
                 </div>
               )}
             </div>
@@ -137,4 +153,3 @@ const TeacherDisciplines = ({ teacherId }: Props): React.ReactElement => {
 };
 
 export default TeacherDisciplines;
-

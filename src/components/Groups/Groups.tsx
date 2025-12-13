@@ -64,7 +64,7 @@ const Groups = (): React.ReactElement => {
             <div key={group.id} className={styles.groupItem}>
               <div className={styles.groupHeader}>
                 <h3>{group.name}</h3>
-                <button 
+                <button
                   onClick={() => onDeleteHandler(group.id)}
                   className={styles.deleteButton}
                 >
@@ -73,8 +73,16 @@ const Groups = (): React.ReactElement => {
               </div>
               {group.course && group.specialty && (
                 <div className={styles.groupInfo}>
-                  <p><strong>Курс:</strong> {group.course}</p>
-                  <p><strong>Специальность:</strong> {group.specialty}</p>
+                  <p>
+                    <strong>Курс:</strong>
+                    {' '}
+                    {group.course}
+                  </p>
+                  <p>
+                    <strong>Специальность:</strong>
+                    {' '}
+                    {group.specialty}
+                  </p>
                 </div>
               )}
               <div className={styles.curatorSection}>
@@ -82,13 +90,17 @@ const Groups = (): React.ReactElement => {
                 <select
                   id={`curator-${group.id}`}
                   value={group.teacherId || ''}
-                  onChange={(e) => onCuratorChangeHandler(group.id, e.target.value ? parseInt(e.target.value, 10) : undefined)}
+                  onChange={e => onCuratorChangeHandler(group.id, e.target.value ? parseInt(e.target.value, 10) : undefined)}
                   className={styles.curatorSelect}
                 >
                   <option value="">Выберите куратора</option>
                   {teachers.filter(t => !t.isDeleted).map(teacher => (
                     <option key={teacher.id} value={teacher.id}>
-                      {teacher.lastName} {teacher.firstName} {teacher.middleName}
+                      {teacher.lastName}
+                      {' '}
+                      {teacher.firstName}
+                      {' '}
+                      {teacher.middleName}
                     </option>
                   ))}
                 </select>

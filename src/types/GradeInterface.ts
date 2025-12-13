@@ -9,5 +9,3 @@ interface GradeInterface {
 };
 
 export default GradeInterface;
-
-

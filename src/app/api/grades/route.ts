@@ -1,5 +1,5 @@
 import { getGradesByDisciplineDb, addGradeDb, getGradesByStudentDb } from '@/db/gradeDb';
-import { type NextApiRequest } from 'next/types';
+import { type NextRequest } from 'next/server';
 
 export async function GET(req: Request): Promise<Response> {
   try {
@@ -66,7 +66,7 @@ export async function GET(req: Request): Promise<Response> {
   }
 }
 
-export async function POST(req: NextApiRequest): Promise<Response> {
+export async function POST(req: NextRequest): Promise<Response> {
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -93,4 +93,3 @@ export async function POST(req: NextApiRequest): Promise<Response> {
     });
   }
 }
-

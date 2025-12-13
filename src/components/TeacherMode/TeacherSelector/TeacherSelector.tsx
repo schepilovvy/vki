@@ -16,13 +16,17 @@ const TeacherSelector = ({ selectedTeacherId, onSelect }: Props): React.ReactEle
       <h2>Выберите преподавателя</h2>
       <select
         value={selectedTeacherId || ''}
-        onChange={(e) => onSelect(parseInt(e.target.value, 10))}
+        onChange={e => onSelect(parseInt(e.target.value, 10))}
         className={styles.select}
       >
         <option value="">-- Выберите преподавателя --</option>
         {teachers.filter(t => !t.isDeleted).map(teacher => (
           <option key={teacher.id} value={teacher.id}>
-            {teacher.lastName} {teacher.firstName} {teacher.middleName}
+            {teacher.lastName}
+            {' '}
+            {teacher.firstName}
+            {' '}
+            {teacher.middleName}
           </option>
         ))}
       </select>
@@ -31,5 +35,3 @@ const TeacherSelector = ({ selectedTeacherId, onSelect }: Props): React.ReactEle
 };
 
 export default TeacherSelector;
-
-

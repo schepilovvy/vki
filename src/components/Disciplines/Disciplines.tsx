@@ -58,4 +58,3 @@ const Disciplines = (): React.ReactElement => {
 };
 
 export default Disciplines;
-

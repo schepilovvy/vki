@@ -28,12 +28,22 @@ const Discipline = ({ discipline, onDelete }: Props): React.ReactElement => {
         <div className={styles.disciplineDetails}>
           {group && (
             <span className={styles.group}>
-              Группа: {group.name} {group.course && `(${group.course} курс)`}
+              Группа:
+              {' '}
+              {group.name}
+              {' '}
+              {group.course && `(${group.course} курс)`}
             </span>
           )}
           {teacher && (
             <span className={styles.teacher}>
-              Преподаватель: {teacher.lastName} {teacher.firstName} {teacher.middleName}
+              Преподаватель:
+              {' '}
+              {teacher.lastName}
+              {' '}
+              {teacher.firstName}
+              {' '}
+              {teacher.middleName}
             </span>
           )}
         </div>
@@ -44,5 +54,3 @@ const Discipline = ({ discipline, onDelete }: Props): React.ReactElement => {
 };
 
 export default Discipline;
-
-

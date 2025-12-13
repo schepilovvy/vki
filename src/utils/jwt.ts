@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 import type UserInterface from '@/types/UserInterface';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
+const JWT_SECRET: string = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
+const JWT_EXPIRES_IN: string = process.env.JWT_EXPIRES_IN || '7d';
 
 export interface JWTPayload {
   userId: number;
@@ -25,7 +25,7 @@ export const generateToken = (user: UserInterface): string => {
   };
 
   return jwt.sign(payload, JWT_SECRET, {
-    expiresIn: JWT_EXPIRES_IN,
+    expiresIn: JWT_EXPIRES_IN as jwt.SignOptions['expiresIn'],
   });
 };
 
@@ -37,7 +37,7 @@ export const verifyToken = (token: string): JWTPayload | null => {
     const decoded = jwt.verify(token, JWT_SECRET) as JWTPayload;
     return decoded;
   }
-  catch (error) {
+  catch {
     return null;
   }
 };
@@ -57,5 +57,3 @@ export const extractTokenFromHeader = (authHeader: string | null): string | null
 
   return parts[1];
 };
-
-

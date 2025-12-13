@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server';
 // Публичные маршруты, которые не требуют аутентификации
 const publicRoutes = ['/login', '/api/auth/login', '/api/auth/init-users'];
 
-export function middleware(request: NextRequest) {
+export function middleware(request: NextRequest): NextResponse {
   const { pathname } = request.nextUrl;
 
   // Разрешаем доступ к публичным маршрутам
@@ -32,4 +32,3 @@ export const config = {
     '/((?!_next/static|_next/image|favicon.ico).*)',
   ],
 };
-

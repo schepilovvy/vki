@@ -60,7 +60,9 @@ const HomeworkList = ({ disciplineId, onDelete }: Props): React.ReactElement => 
             <div className={styles.homeworkDescription}>{homework.description}</div>
             <div className={styles.homeworkMeta}>
               <span className={styles.dueDate}>
-                Срок: {formatDate(homework.dueDate)}
+                Срок:
+                {' '}
+                {formatDate(homework.dueDate)}
               </span>
               <button
                 className={styles.deleteButton}
@@ -77,4 +79,3 @@ const HomeworkList = ({ disciplineId, onDelete }: Props): React.ReactElement => 
 };
 
 export default HomeworkList;
-

@@ -19,5 +19,3 @@ const StudentGradesPage = (): React.ReactNode => (
 );
 
 export default StudentGradesPage;
-
-

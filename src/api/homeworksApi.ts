@@ -77,5 +77,3 @@ export const addHomeworkApi = async (homework: HomeworkInterface): Promise<Homew
     throw err;
   }
 };
-
-

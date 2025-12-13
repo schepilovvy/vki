@@ -29,5 +29,3 @@ export class User {
   @Column({ nullable: true })
   teacherId?: number; // Связь с преподавателем, если роль = teacher
 }
-
-

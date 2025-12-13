@@ -3,11 +3,12 @@ import type TeacherInterface from '@/types/TeacherInterface';
 import AppDataSource, { initializeDataSource } from './AppDataSource';
 import { createUserDb } from './userDb';
 import { UserRole } from './entity/User.entity';
+import type { Repository } from 'typeorm';
 
 /**
  * Получение репозитория преподавателей с проверкой соединения
  */
-const getTeacherRepository = async () => {
+const getTeacherRepository = async (): Promise<Repository<Teacher>> => {
   if (!AppDataSource.isInitialized) {
     await initializeDataSource();
   }
@@ -60,10 +61,10 @@ const isFioUnique = async (lastName: string, firstName: string, middleName: stri
   const { getStudentsDb } = await import('./studentDb');
   const students = await getStudentsDb();
   const existingStudent = students.find(
-    s => !s.isDeleted && 
-    s.lastName === lastName && 
-    s.firstName === firstName && 
-    s.middleName === middleName
+    s => !s.isDeleted
+      && s.lastName === lastName
+      && s.firstName === firstName
+      && s.middleName === middleName,
   );
 
   return !existingStudent;
@@ -128,4 +129,3 @@ export const searchTeachersDb = async (searchQuery: string): Promise<TeacherInte
     .orWhere("teacher.lastName || ' ' || teacher.firstName || ' ' || teacher.middleName LIKE :query", { query })
     .getMany();
 };
-

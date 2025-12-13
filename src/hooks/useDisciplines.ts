@@ -103,5 +103,3 @@ const useDisciplines = (): DisciplinesHookInterface => {
 };
 
 export default useDisciplines;
-
-

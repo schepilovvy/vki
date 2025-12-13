@@ -1,11 +1,12 @@
 import { Homework } from './entity/Homework.entity';
 import type HomeworkInterface from '@/types/HomeworkInterface';
 import AppDataSource, { initializeDataSource } from './AppDataSource';
+import type { Repository } from 'typeorm';
 
 /**
  * Получение репозитория домашних заданий с проверкой соединения
  */
-const getHomeworkRepository = async () => {
+const getHomeworkRepository = async (): Promise<Repository<Homework>> => {
   if (!AppDataSource.isInitialized) {
     await initializeDataSource();
   }
@@ -67,5 +68,3 @@ export const addHomeworkDb = async (homeworkFields: Omit<HomeworkInterface, 'id'
   });
   return newHomework;
 };
-
-

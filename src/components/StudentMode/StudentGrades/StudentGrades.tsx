@@ -51,7 +51,7 @@ const StudentGrades = ({ studentId }: Props): React.ReactElement => {
   const gradesByDiscipline = activeGrades.reduce((acc, grade) => {
     const discipline = disciplines.find(d => d.id === grade.disciplineId);
     const disciplineName = discipline?.name || 'Неизвестная дисциплина';
-    
+
     if (!acc[disciplineName]) {
       acc[disciplineName] = [];
     }
@@ -95,4 +95,3 @@ const StudentGrades = ({ studentId }: Props): React.ReactElement => {
 };
 
 export default StudentGrades;
-

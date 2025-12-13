@@ -14,5 +14,3 @@ export class Discipline {
   @Column()
   teacherId!: number;
 }
-
-

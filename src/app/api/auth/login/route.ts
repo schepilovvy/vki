@@ -9,7 +9,7 @@ export async function POST(req: Request): Promise<Response> {
   try {
     // Убеждаемся, что БД инициализирована
     await initializeDataSource();
-    
+
     const body = await req.json();
     let { login, password } = body;
 
@@ -17,14 +17,14 @@ export async function POST(req: Request): Promise<Response> {
     login = typeof login === 'string' ? login.trim() : login;
     password = typeof password === 'string' ? password.trim() : password;
 
-    console.log('Login attempt:', { 
-      login, 
+    console.log('Login attempt:', {
+      login,
       loginLength: login?.length,
       loginChars: JSON.stringify(login),
       hasPassword: !!password,
       passwordLength: password?.length,
       dbPath: AppDataSource.options.database,
-      dbInitialized: AppDataSource.isInitialized
+      dbInitialized: AppDataSource.isInitialized,
     });
 
     if (!login || !password) {
@@ -63,8 +63,8 @@ export async function POST(req: Request): Promise<Response> {
       const student = students.find(s => s.id === user.studentId && !s.isDeleted);
       if (!student) {
         console.error('Student not found for user:', { login, studentId: user.studentId });
-        return new Response(JSON.stringify({ 
-          error: `Студент с ID ${user.studentId} не найден в системе. Обратитесь к администратору.` 
+        return new Response(JSON.stringify({
+          error: `Студент с ID ${user.studentId} не найден в системе. Обратитесь к администратору.`,
         }), {
           status: 400,
           headers: {
@@ -78,8 +78,8 @@ export async function POST(req: Request): Promise<Response> {
       const teacher = teachers.find(t => t.id === user.teacherId && !t.isDeleted);
       if (!teacher) {
         console.error('Teacher not found for user:', { login, teacherId: user.teacherId });
-        return new Response(JSON.stringify({ 
-          error: `Преподаватель с ID ${user.teacherId} не найден в системе. Обратитесь к администратору.` 
+        return new Response(JSON.stringify({
+          error: `Преподаватель с ID ${user.teacherId} не найден в системе. Обратитесь к администратору.`,
         }), {
           status: 400,
           headers: {
@@ -110,4 +110,3 @@ export async function POST(req: Request): Promise<Response> {
     });
   }
 }
-

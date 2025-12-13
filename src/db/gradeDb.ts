@@ -1,11 +1,12 @@
 import { Grade } from './entity/Grade.entity';
 import type GradeInterface from '@/types/GradeInterface';
 import AppDataSource, { initializeDataSource } from './AppDataSource';
+import type { Repository } from 'typeorm';
 
 /**
  * Получение репозитория оценок с проверкой соединения
  */
-const getGradeRepository = async () => {
+const getGradeRepository = async (): Promise<Repository<Grade>> => {
   if (!AppDataSource.isInitialized) {
     await initializeDataSource();
   }
@@ -87,4 +88,3 @@ export const addGradeDb = async (gradeFields: Omit<GradeInterface, 'id'>): Promi
   });
   return newGrade;
 };
-

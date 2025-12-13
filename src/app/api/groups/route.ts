@@ -1,10 +1,10 @@
 import { getGroupsDb, addGroupsDb } from '@/db/groupDb';
-import { type NextApiRequest } from 'next/types';
+import { type NextRequest } from 'next/server';
 
 export async function GET(): Promise<Response> {
   try {
     const groups = await getGroupsDb();
- 
+
     return new Response(JSON.stringify(groups), {
       headers: {
         'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ export async function GET(): Promise<Response> {
   }
 };
 
-export async function POST(req: NextApiRequest): Promise<Response> {
+export async function POST(req: NextRequest): Promise<Response> {
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

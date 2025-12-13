@@ -18,7 +18,14 @@ const Student = ({ student, groupName, onDelete }: Props): React.ReactElement =>
     <div className={`${styles.Student} ${styles[modifier]}`}>
       <div>
         {`${student.id || 'xxxx'} - ${student.lastName} ${student.firstName} ${student.middleName}`}
-        {groupName && <span className={styles.groupName}> (Группа: {groupName})</span>}
+        {groupName && (
+          <span className={styles.groupName}>
+            {' '}
+            (Группа:
+            {groupName}
+            )
+          </span>
+        )}
       </div>
       <button onClick={onDeleteHandler}>Удалить</button>
     </div>

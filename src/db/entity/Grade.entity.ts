@@ -17,5 +17,3 @@ export class Grade {
   @Column({ nullable: true })
   date?: string; // Дата выставления оценки в формате ISO string
 }
-
-

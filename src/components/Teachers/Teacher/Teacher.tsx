@@ -17,7 +17,14 @@ const Teacher = ({ teacher, onDelete }: Props): React.ReactElement => {
     <div className={`${styles.Teacher} ${styles[modifier]}`}>
       <div>
         {`${teacher.id || 'xxxx'} - ${teacher.lastName} ${teacher.firstName} ${teacher.middleName}`}
-        {teacher.contacts && <span className={styles.contacts}> (Контакты: {teacher.contacts})</span>}
+        {teacher.contacts && (
+          <span className={styles.contacts}>
+            {' '}
+            (Контакты:
+            {teacher.contacts}
+            )
+          </span>
+        )}
       </div>
       <button onClick={onDeleteHandler}>Удалить</button>
     </div>
@@ -25,5 +32,3 @@ const Teacher = ({ teacher, onDelete }: Props): React.ReactElement => {
 };
 
 export default Teacher;
-
-

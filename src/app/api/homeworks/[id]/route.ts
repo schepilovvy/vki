@@ -1,11 +1,11 @@
 import { deleteHomeworkDb } from '@/db/homeworkDb';
-import { type NextApiRequest } from 'next/types';
+import { type NextRequest } from 'next/server';
 
 interface Params {
   params: Promise<{ id: string }>;
 }
 
-export async function DELETE(req: NextApiRequest, { params }: Params): Promise<Response> {
+export async function DELETE(req: NextRequest, { params }: Params): Promise<Response> {
   try {
     const p = await params;
     const homeworkId = parseInt((await p).id, 10);
@@ -37,5 +37,3 @@ export async function DELETE(req: NextApiRequest, { params }: Params): Promise<R
     });
   }
 }
-
-
