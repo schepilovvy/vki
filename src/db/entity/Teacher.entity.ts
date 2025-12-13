@@ -1,9 +1,12 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity()
+@Entity('teacher')
 export class Teacher {
   @PrimaryGeneratedColumn()
   id!: number;
+
+  @Column({ nullable: true })
+  name?: string;
 
   @Column()
   firstName!: string;
@@ -14,6 +17,6 @@ export class Teacher {
   @Column()
   middleName!: string;
 
-  @Column({ default: '' })
-  contacts?: string;
+  @Column({ nullable: true })
+  teacherId?: number;
 }

@@ -23,18 +23,6 @@
     border-color: #ccc;
   }
 
-  .contacts {
-    color: #666;
-    font-size: 0.9em;
-    margin-left: 10px;
-
-    @media #{main.$mob} {
-      font-size: 0.85em;
-      margin-left: 0;
-      margin-top: 5px;
-    }
-  }
-
   button {
     padding: 10px 20px;
     background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);

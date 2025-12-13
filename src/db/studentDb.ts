@@ -21,8 +21,16 @@ const getStudentRepository = async (): Promise<Repository<Student>> => {
  * @returns Promise<StudentInterface[]>
  */
 export const getStudentsDb = async (): Promise<StudentInterface[]> => {
-  const studentRepository = await getStudentRepository();
-  return await studentRepository.find();
+  try {
+    const studentRepository = await getStudentRepository();
+    const students = await studentRepository.find();
+    console.log(`getStudentsDb: Found ${students.length} students`);
+    return students;
+  }
+  catch (error) {
+    console.error('Error in getStudentsDb:', error);
+    throw error;
+  }
 };
 
 /**
@@ -145,7 +153,6 @@ export const addRandomStudentsDb = async (amount: number = 10): Promise<StudentI
 
     const newStudent = await addStudentDb({
       ...fio,
-      contacts: 'contact',
       groupId: 1,
     });
     students.push(newStudent);

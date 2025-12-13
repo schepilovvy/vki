@@ -1,8 +1,10 @@
 import type TeacherInterface from '@/types/TeacherInterface';
 
+const getApiUrl = (): string => process.env.NEXT_PUBLIC_API || '/api/';
+
 export const getTeachersApi = async (): Promise<TeacherInterface[]> => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API}teachers`);
+    const response = await fetch(`${getApiUrl()}teachers`);
 
     if (!response.ok) {
       throw new Error(`Ошибка HTTP: ${response.status}${response.statusText}`);
@@ -20,7 +22,7 @@ export const deleteTeacherApi = async (teacherId: number): Promise<number> => {
   console.log('deleteTeacherApi', teacherId);
   debugger;
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API}teachers/${teacherId}`, {
+    const response = await fetch(`${getApiUrl()}teachers/${teacherId}`, {
       method: 'DELETE',
     });
 
@@ -42,7 +44,7 @@ export const addTeacherApi = async (teacher: TeacherInterface & { password?: str
   console.log('addTeacherApi');
   debugger;
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API}teachers`, {
+    const response = await fetch(`${getApiUrl()}teachers`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(teacher),

@@ -75,7 +75,6 @@ async function initStudents() {
               firstName: fio.firstName,
               lastName: fio.lastName,
               middleName: fio.middleName,
-              contacts: '',
               groupId: group.id,
             },
             password,

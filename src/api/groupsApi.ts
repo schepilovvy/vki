@@ -1,8 +1,10 @@
 import type GroupInterface from '@/types/GroupInterface';
 
+const getApiUrl = (): string => process.env.NEXT_PUBLIC_API || '/api/';
+
 export const getGroupsApi = async (): Promise<GroupInterface[]> => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API}groups`);
+    const response = await fetch(`${getApiUrl()}groups`);
 
     if (!response.ok) {
       throw new Error(`Ошибка HTTP: ${response.status}${response.statusText}`);
@@ -20,7 +22,7 @@ export const addGroupApi = async (group: GroupInterface): Promise<GroupInterface
   console.log('addGroupApi');
   debugger;
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API}groups`, {
+    const response = await fetch(`${getApiUrl()}groups`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(group),
@@ -44,7 +46,7 @@ export const deleteGroupApi = async (groupId: number): Promise<number> => {
   console.log('deleteGroupApi', groupId);
   debugger;
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API}groups/${groupId}`, {
+    const response = await fetch(`${getApiUrl()}groups/${groupId}`, {
       method: 'DELETE',
     });
 
@@ -66,7 +68,7 @@ export const updateGroupApi = async (groupId: number, groupFields: Partial<Omit<
   console.log('updateGroupApi', groupId, groupFields);
   debugger;
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API}groups/${groupId}`, {
+    const response = await fetch(`${getApiUrl()}groups/${groupId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(groupFields),

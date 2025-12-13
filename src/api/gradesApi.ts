@@ -1,8 +1,10 @@
 import type GradeInterface from '@/types/GradeInterface';
 
+const getApiUrl = (): string => process.env.NEXT_PUBLIC_API || '/api/';
+
 export const getGradesByDisciplineApi = async (disciplineId: number): Promise<GradeInterface[]> => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API}grades?disciplineId=${disciplineId}`);
+    const response = await fetch(`${getApiUrl()}grades?disciplineId=${disciplineId}`);
 
     if (!response.ok) {
       throw new Error(`Ошибка HTTP: ${response.status}${response.statusText}`);
@@ -18,7 +20,7 @@ export const getGradesByDisciplineApi = async (disciplineId: number): Promise<Gr
 
 export const getGradesByStudentApi = async (studentId: number): Promise<GradeInterface[]> => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API}grades?studentId=${studentId}`);
+    const response = await fetch(`${getApiUrl()}grades?studentId=${studentId}`);
 
     if (!response.ok) {
       throw new Error(`Ошибка HTTP: ${response.status}${response.statusText}`);
@@ -36,7 +38,7 @@ export const deleteGradeApi = async (gradeId: number): Promise<number> => {
   console.log('deleteGradeApi', gradeId);
   debugger;
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API}grades/${gradeId}`, {
+    const response = await fetch(`${getApiUrl()}grades/${gradeId}`, {
       method: 'DELETE',
     });
 
@@ -58,7 +60,7 @@ export const addGradeApi = async (grade: GradeInterface): Promise<GradeInterface
   console.log('addGradeApi');
   debugger;
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API}grades`, {
+    const response = await fetch(`${getApiUrl()}grades`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(grade),

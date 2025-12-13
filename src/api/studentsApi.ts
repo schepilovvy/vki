@@ -1,8 +1,10 @@
 import type StudentInterface from '@/types/StudentInterface';
 
+const getApiUrl = (): string => process.env.NEXT_PUBLIC_API || '/api/';
+
 export const getStudentsApi = async (): Promise<StudentInterface[]> => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API}students`);
+    const response = await fetch(`${getApiUrl()}students`);
 
     if (!response.ok) {
       throw new Error(`Ошибка HTTP: ${response.status}${response.statusText}`);
@@ -20,7 +22,7 @@ export const deleteStudentApi = async (studentId: number): Promise<number> => {
   console.log('deleteStudentApi', studentId);
   debugger;
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API}students/${studentId}`, {
+    const response = await fetch(`${getApiUrl()}students/${studentId}`, {
       method: 'DELETE',
     });
 
@@ -42,7 +44,7 @@ export const addStudentApi = async (student: StudentInterface & { password?: str
   console.log('addStudentApi');
   debugger;
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API}students`, {
+    const response = await fetch(`${getApiUrl()}students`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(student),

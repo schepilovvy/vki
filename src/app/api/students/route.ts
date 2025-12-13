@@ -1,8 +1,18 @@
 import { getStudentsDb, addStudentDb } from '@/db/studentDb';
+import { initializeDataSource } from '@/db/AppDataSource';
+import AppDataSource from '@/db/AppDataSource';
 
 export async function GET(): Promise<Response> {
   try {
+    await initializeDataSource();
+    console.log('GET /api/students: Starting...');
+    console.log('GET /api/students: DB path:', AppDataSource.options.database);
+    console.log('GET /api/students: DB initialized:', AppDataSource.isInitialized);
     const students = await getStudentsDb();
+    console.log(`GET /api/students: Returning ${students.length} students`);
+    if (students.length > 0) {
+      console.log('GET /api/students: First student:', JSON.stringify(students[0]));
+    }
 
     return new Response(JSON.stringify(students), {
       headers: {
@@ -23,6 +33,7 @@ export async function GET(): Promise<Response> {
 
 export async function POST(req: Request): Promise<Response> {
   try {
+    await initializeDataSource();
     const body = await req.json();
     const { password, ...student } = body;
     delete student['id'];

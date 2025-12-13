@@ -1,6 +1,8 @@
 import type UserInterface from '@/types/UserInterface';
 import type { JWTPayload } from '@/utils/jwt';
 
+const getApiUrl = (): string => process.env.NEXT_PUBLIC_API || '/api/';
+
 export interface LoginResponse {
   token: string;
   user: UserInterface;
@@ -8,7 +10,7 @@ export interface LoginResponse {
 
 export const loginApi = async (login: string, password: string): Promise<LoginResponse> => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API}auth/login`, {
+    const response = await fetch(`${getApiUrl()}auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ login, password }),
@@ -38,7 +40,7 @@ export const getCurrentUserApi = async (): Promise<JWTPayload | null> => {
       return null;
     }
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API}auth/me`, {
+    const response = await fetch(`${getApiUrl()}auth/me`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,

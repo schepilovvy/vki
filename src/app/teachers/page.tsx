@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   description: META_DESCRIPTION,
 };
 
+export const dynamic = 'force-dynamic';
+
 const TeachersPage = (): React.ReactNode => (
   <Page>
     <ProtectedRoute allowedRoles={[UserRole.ADMIN]}>

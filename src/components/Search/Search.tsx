@@ -135,13 +135,6 @@ const Search = (): React.ReactElement => {
               {group.name}
             </p>
           )}
-          {student.contacts && (
-            <p>
-              <strong>Контакты:</strong>
-              {' '}
-              {student.contacts}
-            </p>
-          )}
           <StudentGrades studentId={student.id} />
         </div>
       </div>
@@ -175,13 +168,6 @@ const Search = (): React.ReactElement => {
             {' '}
             {teacher.middleName}
           </p>
-          {teacher.contacts && (
-            <p>
-              <strong>Контакты:</strong>
-              {' '}
-              {teacher.contacts}
-            </p>
-          )}
 
           {teacherDisciplines.length > 0 && (
             <div className={styles.section}>

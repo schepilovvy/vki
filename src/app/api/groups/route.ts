@@ -1,9 +1,19 @@
 import { getGroupsDb, addGroupsDb } from '@/db/groupDb';
+import { initializeDataSource } from '@/db/AppDataSource';
+import AppDataSource from '@/db/AppDataSource';
 import { type NextRequest } from 'next/server';
 
 export async function GET(): Promise<Response> {
   try {
+    await initializeDataSource();
+    console.log('GET /api/groups: Starting...');
+    console.log('GET /api/groups: DB path:', AppDataSource.options.database);
+    console.log('GET /api/groups: DB initialized:', AppDataSource.isInitialized);
     const groups = await getGroupsDb();
+    console.log(`GET /api/groups: Returning ${groups.length} groups`);
+    if (groups.length > 0) {
+      console.log('GET /api/groups: First group:', JSON.stringify(groups[0]));
+    }
 
     return new Response(JSON.stringify(groups), {
       headers: {
@@ -24,6 +34,7 @@ export async function GET(): Promise<Response> {
 
 export async function POST(req: NextRequest): Promise<Response> {
   try {
+    await initializeDataSource();
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const group = await req.json();

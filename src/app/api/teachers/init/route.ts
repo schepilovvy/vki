@@ -25,7 +25,6 @@ export async function GET(): Promise<Response> {
             firstName: teacher.firstName,
             lastName: teacher.lastName,
             middleName: teacher.middleName,
-            contacts: '',
           },
           'teacher123',
         );

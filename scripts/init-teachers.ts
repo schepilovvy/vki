@@ -31,7 +31,6 @@ async function initTeachers() {
             firstName: teacher.firstName,
             lastName: teacher.lastName,
             middleName: teacher.middleName,
-            contacts: '',
           },
           'teacher123',
         );

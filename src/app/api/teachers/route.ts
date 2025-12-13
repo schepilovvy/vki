@@ -1,8 +1,18 @@
 import { getTeachersDb, addTeacherDb } from '@/db/teacherDb';
+import { initializeDataSource } from '@/db/AppDataSource';
+import AppDataSource from '@/db/AppDataSource';
 
 export async function GET(): Promise<Response> {
   try {
+    await initializeDataSource();
+    console.log('GET /api/teachers: Starting...');
+    console.log('GET /api/teachers: DB path:', AppDataSource.options.database);
+    console.log('GET /api/teachers: DB initialized:', AppDataSource.isInitialized);
     const teachers = await getTeachersDb();
+    console.log(`GET /api/teachers: Returning ${teachers.length} teachers`);
+    if (teachers.length > 0) {
+      console.log('GET /api/teachers: First teacher:', JSON.stringify(teachers[0]));
+    }
 
     return new Response(JSON.stringify(teachers), {
       headers: {
@@ -23,6 +33,7 @@ export async function GET(): Promise<Response> {
 
 export async function POST(req: Request): Promise<Response> {
   try {
+    await initializeDataSource();
     const body = await req.json();
     const { password, ...teacher } = body;
     delete teacher['id'];

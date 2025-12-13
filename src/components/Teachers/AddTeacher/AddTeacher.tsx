@@ -2,7 +2,7 @@ import type TeacherInterface from '@/types/TeacherInterface';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import styles from './AddTeacher.module.scss';
 
-export type FormFields = Pick<TeacherInterface, 'firstName' | 'lastName' | 'middleName' | 'contacts'> & {
+export type FormFields = Pick<TeacherInterface, 'firstName' | 'lastName' | 'middleName'> & {
   password: string;
 };
 
@@ -42,11 +42,6 @@ const AddTeacher = ({ onAdd }: Props): React.ReactElement => {
           {...register('middleName', { required: true })}
         />
         {errors.middleName && <div className={styles.errorMessage}>Обязательное поле</div>}
-
-        <input
-          placeholder="Контакты"
-          {...register('contacts', { required: false })}
-        />
 
         <input
           type="password"
