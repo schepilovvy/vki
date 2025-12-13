@@ -3,7 +3,7 @@ import styles from './Teacher.module.scss';
 
 interface Props {
   teacher: TeacherInterface;
-  onDelete: (id: number) => void;
+  onDelete: (_teacherId: number) => void;
 }
 
 const Teacher = ({ teacher, onDelete }: Props): React.ReactElement => {

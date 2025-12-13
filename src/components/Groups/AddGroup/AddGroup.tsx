@@ -1,4 +1,3 @@
-import type GroupInterface from '@/types/GroupInterface';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import styles from './AddGroup.module.scss';
 import useTeachers from '@/hooks/useTeachers';
@@ -12,7 +11,7 @@ export type FormFields = {
 };
 
 interface Props {
-  onAdd: (groupForm: FormFields) => void;
+  onAdd: (formFields: FormFields) => void;
 }
 
 const AddGroup = ({ onAdd }: Props): React.ReactElement => {
@@ -23,7 +22,7 @@ const AddGroup = ({ onAdd }: Props): React.ReactElement => {
     formState: { errors },
   } = useForm<FormFields>();
 
-  const onSubmit: SubmitHandler<FormFields> = groupForm => onAdd(groupForm);
+  const onSubmit: SubmitHandler<FormFields> = formFields => onAdd(formFields);
 
   return (
     <div className={styles.AddGroup}>

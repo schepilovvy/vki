@@ -9,7 +9,7 @@ export type FormFields = Pick<HomeworkInterface, 'title' | 'description' | 'dueD
 interface Props {
   disciplineId: number;
   disciplineName: string;
-  onAdd: (homework: FormFields & { disciplineId: number }) => void;
+  onAdd: (_formFields: FormFields & { disciplineId: number }) => void;
   onClose: () => void;
 }
 

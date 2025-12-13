@@ -6,7 +6,7 @@ import styles from './HomeworkList.module.scss';
 
 interface Props {
   disciplineId: number;
-  onDelete?: (homeworkId: number) => void;
+  onDelete?: (_id: number) => void;
 }
 
 const HomeworkList = ({ disciplineId, onDelete }: Props): React.ReactElement => {

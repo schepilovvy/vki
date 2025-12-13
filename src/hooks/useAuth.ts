@@ -9,7 +9,7 @@ interface AuthHookInterface {
   user: JWTPayload | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (login: string, password: string) => Promise<void>;
+  login: (_loginParam: string, _passwordParam: string) => Promise<void>;
   logout: () => void;
   refetch: () => void;
 }

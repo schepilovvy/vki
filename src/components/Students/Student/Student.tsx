@@ -4,7 +4,7 @@ import styles from './Student.module.scss';
 interface Props {
   student: StudentInterface;
   groupName?: string;
-  onDelete: (id: number) => void;
+  onDelete: (_studentId: number) => void;
 }
 
 const Student = ({ student, groupName, onDelete }: Props): React.ReactElement => {

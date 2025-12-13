@@ -8,8 +8,8 @@ import type HomeworkInterface from '@/types/HomeworkInterface';
 
 interface HomeworksHookInterface {
   homeworks: HomeworkInterface[];
-  deleteHomeworkMutate: (homeworkId: number) => void;
-  addHomeworkMutate: (homework: HomeworkInterface) => void;
+  deleteHomeworkMutate: (_id: number) => void;
+  addHomeworkMutate: (_homeworkData: HomeworkInterface) => void;
   refetch: () => void;
 }
 
@@ -26,8 +26,8 @@ const useHomeworks = (disciplineId: number | null): HomeworksHookInterface => {
    * Мутация удаления домашнего задания
    */
   const deleteHomeworkMutate = useMutation({
-    mutationFn: async (homeworkId: number) => deleteHomeworkApi(homeworkId),
-    onMutate: async (homeworkId: number) => {
+    mutationFn: async (id: number) => deleteHomeworkApi(id),
+    onMutate: async (id: number) => {
       await queryClient.cancelQueries({ queryKey: ['homeworks', disciplineId] });
       const previousHomeworks = queryClient.getQueryData<HomeworkInterface[]>(['homeworks', disciplineId]);
       let updatedHomeworks = [...(previousHomeworks ?? [])];
@@ -36,7 +36,7 @@ const useHomeworks = (disciplineId: number | null): HomeworksHookInterface => {
 
       updatedHomeworks = updatedHomeworks.map((homework: HomeworkInterface) => ({
         ...homework,
-        ...(homework.id === homeworkId ? { isDeleted: true } : {}),
+        ...(homework.id === id ? { isDeleted: true } : {}),
       }));
       queryClient.setQueryData<HomeworkInterface[]>(['homeworks', disciplineId], updatedHomeworks);
 
@@ -45,29 +45,29 @@ const useHomeworks = (disciplineId: number | null): HomeworksHookInterface => {
 
       return { previousHomeworks, updatedHomeworks };
     },
-    onError: (err, variables, context) => {
+    onError: (err, _variables, context) => {
       console.log('deleteHomeworkMutate  err', err);
       debugger;
       queryClient.setQueryData<HomeworkInterface[]>(['homeworks', disciplineId], context?.previousHomeworks);
     },
-    onSuccess: async (homeworkId, variables, { previousHomeworks }) => {
-      console.log('deleteHomeworkMutate  onSuccess', homeworkId);
+    onSuccess: async (_result, id, context) => {
+      console.log('deleteHomeworkMutate  onSuccess', id);
       debugger;
 
       await queryClient.cancelQueries({ queryKey: ['homeworks', disciplineId] });
-      if (!previousHomeworks) {
+      if (!context?.previousHomeworks) {
         return;
       }
-      const updatedHomeworks = previousHomeworks.filter((homework: HomeworkInterface) => homework.id !== homeworkId);
+      const updatedHomeworks = context.previousHomeworks.filter((homework: HomeworkInterface) => homework.id !== id);
       queryClient.setQueryData<HomeworkInterface[]>(['homeworks', disciplineId], updatedHomeworks);
     },
   });
 
   const addHomeworkMutate = useMutation({
-    mutationFn: async (homework: HomeworkInterface) => addHomeworkApi(homework),
+    mutationFn: async (homeworkData: HomeworkInterface) => addHomeworkApi(homeworkData),
 
-    onMutate: async (homework: HomeworkInterface) => {
-      const homeworkDisciplineId = homework.disciplineId;
+    onMutate: async (homeworkData: HomeworkInterface) => {
+      const homeworkDisciplineId = homeworkData.disciplineId;
       await queryClient.cancelQueries({ queryKey: ['homeworks', homeworkDisciplineId] });
       const previousHomeworks = queryClient.getQueryData<HomeworkInterface[]>(['homeworks', homeworkDisciplineId]);
       const updatedHomeworks = [...(previousHomeworks ?? [])];
@@ -75,7 +75,7 @@ const useHomeworks = (disciplineId: number | null): HomeworksHookInterface => {
       if (!updatedHomeworks) return;
 
       updatedHomeworks.push({
-        ...homework,
+        ...homeworkData,
         isNew: true,
       });
       queryClient.setQueryData<HomeworkInterface[]>(['homeworks', homeworkDisciplineId], updatedHomeworks);
@@ -85,8 +85,8 @@ const useHomeworks = (disciplineId: number | null): HomeworksHookInterface => {
 
       return { previousHomeworks, updatedHomeworks, disciplineId: homeworkDisciplineId };
     },
-    onError: (err, variables, context) => {
-      console.log('addHomeworkMutate  err', err);
+    onError: (_err, _variables, context) => {
+      console.log('addHomeworkMutate  err', _err);
       debugger;
 
       if (context?.disciplineId) {

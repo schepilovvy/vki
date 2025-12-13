@@ -5,7 +5,7 @@ import useTeachers from '@/hooks/useTeachers';
 
 interface Props {
   discipline: DisciplineInterface;
-  onDelete: (id: number) => void;
+  onDelete: (disciplineId: number) => void;
 }
 
 const Discipline = ({ discipline, onDelete }: Props): React.ReactElement => {

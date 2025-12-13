@@ -8,9 +8,9 @@ import type GroupInterface from '@/types/GroupInterface';
 
 interface GroupsHookInterface {
   groups: GroupInterface[];
-  addGroupMutate: (group: Omit<GroupInterface, 'id'>) => void;
-  deleteGroupMutate: (groupId: number) => void;
-  updateGroupMutate: (groupId: number, groupFields: Partial<Omit<GroupInterface, 'id'>>) => void;
+  addGroupMutate: (_groupData: Omit<GroupInterface, 'id'>) => void;
+  deleteGroupMutate: (_id: number) => void;
+  updateGroupMutate: (_id: number, _fields: Partial<Omit<GroupInterface, 'id'>>) => void;
 }
 
 const useGroups = (): GroupsHookInterface => {
@@ -25,9 +25,9 @@ const useGroups = (): GroupsHookInterface => {
    * Мутация добавления группы
    */
   const addGroupMutate = useMutation({
-    mutationFn: async (group: Omit<GroupInterface, 'id'>) => addGroupApi({ id: -1, ...group }),
+    mutationFn: async (groupData: Omit<GroupInterface, 'id'>) => addGroupApi({ id: -1, ...groupData }),
 
-    onMutate: async (group: Omit<GroupInterface, 'id'>) => {
+    onMutate: async (groupData: Omit<GroupInterface, 'id'>) => {
       await queryClient.cancelQueries({ queryKey: ['groups'] });
       const previousGroups = queryClient.getQueryData<GroupInterface[]>(['groups']);
       const updatedGroups = [...(previousGroups ?? [])];
@@ -35,7 +35,7 @@ const useGroups = (): GroupsHookInterface => {
       if (!updatedGroups) return;
 
       updatedGroups.push({
-        ...group,
+        ...groupData,
         id: -1,
       } as GroupInterface);
       queryClient.setQueryData<GroupInterface[]>(['groups'], updatedGroups);
@@ -45,7 +45,7 @@ const useGroups = (): GroupsHookInterface => {
 
       return { previousGroups, updatedGroups };
     },
-    onError: (err, variables, context) => {
+    onError: (err, _variables, context) => {
       console.log('addGroupMutate  err', err);
       debugger;
       queryClient.setQueryData<GroupInterface[]>(['groups'], context?.previousGroups);
@@ -61,8 +61,8 @@ const useGroups = (): GroupsHookInterface => {
    * Мутация удаления группы
    */
   const deleteGroupMutate = useMutation({
-    mutationFn: async (groupId: number) => deleteGroupApi(groupId),
-    onMutate: async (groupId: number) => {
+    mutationFn: async (id: number) => deleteGroupApi(id),
+    onMutate: async (id: number) => {
       await queryClient.cancelQueries({ queryKey: ['groups'] });
       const previousGroups = queryClient.getQueryData<GroupInterface[]>(['groups']);
       let updatedGroups = [...(previousGroups ?? [])];
@@ -71,7 +71,7 @@ const useGroups = (): GroupsHookInterface => {
 
       updatedGroups = updatedGroups.map((group: GroupInterface) => ({
         ...group,
-        ...(group.id === groupId ? { isDeleted: true } : {}),
+        ...(group.id === id ? { isDeleted: true } : {}),
       }));
       queryClient.setQueryData<GroupInterface[]>(['groups'], updatedGroups);
 
@@ -80,20 +80,20 @@ const useGroups = (): GroupsHookInterface => {
 
       return { previousGroups, updatedGroups };
     },
-    onError: (err, variables, context) => {
+    onError: (err, _variables, context) => {
       console.log('deleteGroupMutate  err', err);
       debugger;
       queryClient.setQueryData<GroupInterface[]>(['groups'], context?.previousGroups);
     },
-    onSuccess: async (groupId, variables, { previousGroups }) => {
-      console.log('deleteGroupMutate  onSuccess', groupId);
+    onSuccess: async (_result, id, context) => {
+      console.log('deleteGroupMutate  onSuccess', id);
       debugger;
 
       await queryClient.cancelQueries({ queryKey: ['groups'] });
-      if (!previousGroups) {
+      if (!context?.previousGroups) {
         return;
       }
-      const updatedGroups = previousGroups.filter((group: GroupInterface) => group.id !== groupId);
+      const updatedGroups = context.previousGroups.filter((group: GroupInterface) => group.id !== id);
       queryClient.setQueryData<GroupInterface[]>(['groups'], updatedGroups);
     },
   });
@@ -102,8 +102,8 @@ const useGroups = (): GroupsHookInterface => {
    * Мутация обновления группы
    */
   const updateGroupMutate = useMutation({
-    mutationFn: async ({ groupId, groupFields }: { groupId: number; groupFields: Partial<Omit<GroupInterface, 'id'>> }) =>
-      updateGroupApi(groupId, groupFields),
+    mutationFn: async ({ id, fields }: { id: number; fields: Partial<Omit<GroupInterface, 'id'>> }) =>
+      updateGroupApi(id, fields),
     onSuccess: async () => {
       console.log('updateGroupMutate  onSuccess');
       debugger;
@@ -115,8 +115,8 @@ const useGroups = (): GroupsHookInterface => {
     groups: data ?? [],
     addGroupMutate: addGroupMutate.mutate,
     deleteGroupMutate: deleteGroupMutate.mutate,
-    updateGroupMutate: (groupId: number, groupFields: Partial<Omit<GroupInterface, 'id'>>) =>
-      updateGroupMutate.mutate({ groupId, groupFields }),
+    updateGroupMutate: (id: number, fields: Partial<Omit<GroupInterface, 'id'>>) =>
+      updateGroupMutate.mutate({ id, fields }),
   };
 };
 

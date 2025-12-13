@@ -8,8 +8,8 @@ import type DisciplineInterface from '@/types/DisciplineInterface';
 
 interface DisciplinesHookInterface {
   disciplines: DisciplineInterface[];
-  deleteDisciplineMutate: (disciplineId: number) => void;
-  addDisciplineMutate: (discipline: DisciplineInterface) => void;
+  deleteDisciplineMutate: (_id: number) => void;
+  addDisciplineMutate: (_disciplineData: DisciplineInterface) => void;
 }
 
 const useDisciplines = (): DisciplinesHookInterface => {
@@ -24,8 +24,8 @@ const useDisciplines = (): DisciplinesHookInterface => {
    * Мутация удаления дисциплины
    */
   const deleteDisciplineMutate = useMutation({
-    mutationFn: async (disciplineId: number) => deleteDisciplineApi(disciplineId),
-    onMutate: async (disciplineId: number) => {
+    mutationFn: async (id: number) => deleteDisciplineApi(id),
+    onMutate: async (id: number) => {
       await queryClient.cancelQueries({ queryKey: ['disciplines'] });
       const previousDisciplines = queryClient.getQueryData<DisciplineInterface[]>(['disciplines']);
       let updatedDisciplines = [...(previousDisciplines ?? [])];
@@ -34,7 +34,7 @@ const useDisciplines = (): DisciplinesHookInterface => {
 
       updatedDisciplines = updatedDisciplines.map((discipline: DisciplineInterface) => ({
         ...discipline,
-        ...(discipline.id === disciplineId ? { isDeleted: true } : {}),
+        ...(discipline.id === id ? { isDeleted: true } : {}),
       }));
       queryClient.setQueryData<DisciplineInterface[]>(['disciplines'], updatedDisciplines);
 
@@ -43,28 +43,28 @@ const useDisciplines = (): DisciplinesHookInterface => {
 
       return { previousDisciplines, updatedDisciplines };
     },
-    onError: (err, variables, context) => {
+    onError: (err, _variables, context) => {
       console.log('deleteDisciplineMutate  err', err);
       debugger;
       queryClient.setQueryData<DisciplineInterface[]>(['disciplines'], context?.previousDisciplines);
     },
-    onSuccess: async (disciplineId, variables, { previousDisciplines }) => {
-      console.log('deleteDisciplineMutate  onSuccess', disciplineId);
+    onSuccess: async (_result, id, context) => {
+      console.log('deleteDisciplineMutate  onSuccess', id);
       debugger;
 
       await queryClient.cancelQueries({ queryKey: ['disciplines'] });
-      if (!previousDisciplines) {
+      if (!context?.previousDisciplines) {
         return;
       }
-      const updatedDisciplines = previousDisciplines.filter((discipline: DisciplineInterface) => discipline.id !== disciplineId);
+      const updatedDisciplines = context.previousDisciplines.filter((discipline: DisciplineInterface) => discipline.id !== id);
       queryClient.setQueryData<DisciplineInterface[]>(['disciplines'], updatedDisciplines);
     },
   });
 
   const addDisciplineMutate = useMutation({
-    mutationFn: async (discipline: DisciplineInterface) => addDisciplineApi(discipline),
+    mutationFn: async (disciplineData: DisciplineInterface) => addDisciplineApi(disciplineData),
 
-    onMutate: async (discipline: DisciplineInterface) => {
+    onMutate: async (disciplineData: DisciplineInterface) => {
       await queryClient.cancelQueries({ queryKey: ['disciplines'] });
       const previousDisciplines = queryClient.getQueryData<DisciplineInterface[]>(['disciplines']);
       const updatedDisciplines = [...(previousDisciplines ?? [])];
@@ -72,7 +72,7 @@ const useDisciplines = (): DisciplinesHookInterface => {
       if (!updatedDisciplines) return;
 
       updatedDisciplines.push({
-        ...discipline,
+        ...disciplineData,
         isNew: true,
       });
       queryClient.setQueryData<DisciplineInterface[]>(['disciplines'], updatedDisciplines);
@@ -82,7 +82,7 @@ const useDisciplines = (): DisciplinesHookInterface => {
 
       return { previousDisciplines, updatedDisciplines };
     },
-    onError: (err, variables, context) => {
+    onError: (err, _variables, context) => {
       console.log('addDisciplineMutate  err', err);
       debugger;
 

@@ -5,7 +5,7 @@ import styles from './StudentSelector.module.scss';
 
 interface Props {
   selectedStudentId: number | null;
-  onSelect: (studentId: number) => void;
+  onSelect: (_id: number) => void;
 }
 
 const StudentSelector = ({ selectedStudentId, onSelect }: Props): React.ReactElement => {
