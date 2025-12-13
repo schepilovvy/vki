@@ -8,8 +8,8 @@ import type GradeInterface from '@/types/GradeInterface';
 
 interface GradesHookInterface {
   grades: GradeInterface[];
-  deleteGradeMutate: (gradeId: number) => void;
-  addGradeMutate: (grade: GradeInterface) => void;
+  deleteGradeMutate: (_id: number) => void;
+  addGradeMutate: (_gradeData: GradeInterface) => void;
   refetch: () => void;
 }
 
@@ -26,8 +26,8 @@ const useGrades = (disciplineId: number | null): GradesHookInterface => {
    * Мутация удаления оценки
    */
   const deleteGradeMutate = useMutation({
-    mutationFn: async (gradeId: number) => deleteGradeApi(gradeId),
-    onMutate: async (gradeId: number) => {
+    mutationFn: async (id: number) => deleteGradeApi(id),
+    onMutate: async (id: number) => {
       await queryClient.cancelQueries({ queryKey: ['grades', disciplineId] });
       const previousGrades = queryClient.getQueryData<GradeInterface[]>(['grades', disciplineId]);
       let updatedGrades = [...(previousGrades ?? [])];
@@ -36,7 +36,7 @@ const useGrades = (disciplineId: number | null): GradesHookInterface => {
 
       updatedGrades = updatedGrades.map((grade: GradeInterface) => ({
         ...grade,
-        ...(grade.id === gradeId ? { isDeleted: true } : {}),
+        ...(grade.id === id ? { isDeleted: true } : {}),
       }));
       queryClient.setQueryData<GradeInterface[]>(['grades', disciplineId], updatedGrades);
 
@@ -45,29 +45,29 @@ const useGrades = (disciplineId: number | null): GradesHookInterface => {
 
       return { previousGrades, updatedGrades };
     },
-    onError: (err, variables, context) => {
+    onError: (err, _variables, context) => {
       console.log('deleteGradeMutate  err', err);
       debugger;
       queryClient.setQueryData<GradeInterface[]>(['grades', disciplineId], context?.previousGrades);
     },
-    onSuccess: async (gradeId, variables, { previousGrades }) => {
-      console.log('deleteGradeMutate  onSuccess', gradeId);
+    onSuccess: async (_result, id, context) => {
+      console.log('deleteGradeMutate  onSuccess', id);
       debugger;
 
       await queryClient.cancelQueries({ queryKey: ['grades', disciplineId] });
-      if (!previousGrades) {
+      if (!context?.previousGrades) {
         return;
       }
-      const updatedGrades = previousGrades.filter((grade: GradeInterface) => grade.id !== gradeId);
+      const updatedGrades = context.previousGrades.filter((grade: GradeInterface) => grade.id !== id);
       queryClient.setQueryData<GradeInterface[]>(['grades', disciplineId], updatedGrades);
     },
   });
 
   const addGradeMutate = useMutation({
-    mutationFn: async (grade: GradeInterface) => addGradeApi(grade),
+    mutationFn: async (gradeData: GradeInterface) => addGradeApi(gradeData),
 
-    onMutate: async (grade: GradeInterface) => {
-      const gradeDisciplineId = grade.disciplineId;
+    onMutate: async (gradeData: GradeInterface) => {
+      const gradeDisciplineId = gradeData.disciplineId;
       await queryClient.cancelQueries({ queryKey: ['grades', gradeDisciplineId] });
       const previousGrades = queryClient.getQueryData<GradeInterface[]>(['grades', gradeDisciplineId]);
       const updatedGrades = [...(previousGrades ?? [])];
@@ -75,7 +75,7 @@ const useGrades = (disciplineId: number | null): GradesHookInterface => {
       if (!updatedGrades) return;
 
       updatedGrades.push({
-        ...grade,
+        ...gradeData,
         isNew: true,
       });
       queryClient.setQueryData<GradeInterface[]>(['grades', gradeDisciplineId], updatedGrades);
@@ -85,8 +85,8 @@ const useGrades = (disciplineId: number | null): GradesHookInterface => {
 
       return { previousGrades, updatedGrades, disciplineId: gradeDisciplineId };
     },
-    onError: (err, variables, context) => {
-      console.log('addGradeMutate  err', err);
+    onError: (_err, _variables, context) => {
+      console.log('addGradeMutate  err', _err);
       debugger;
 
       if (context?.disciplineId) {

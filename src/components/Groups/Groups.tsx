@@ -58,9 +58,7 @@ const Groups = (): React.ReactElement => {
       <AddGroup onAdd={onAddHandler} />
 
       <div className={styles.groupsList}>
-        {groups.filter((group: GroupInterface) => !group.isDeleted).map((group: GroupInterface) => {
-          const curator = teachers.find(t => t.id === group.teacherId);
-          return (
+        {groups.filter((group: GroupInterface) => !group.isDeleted).map((group: GroupInterface) => (
             <div key={group.id} className={styles.groupItem}>
               <div className={styles.groupHeader}>
                 <h3>{group.name}</h3>
@@ -106,8 +104,7 @@ const Groups = (): React.ReactElement => {
                 </select>
               </div>
             </div>
-          );
-        })}
+        ))}
       </div>
     </div>
   );

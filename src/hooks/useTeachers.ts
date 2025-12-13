@@ -8,8 +8,8 @@ import type TeacherInterface from '@/types/TeacherInterface';
 
 interface TeachersHookInterface {
   teachers: TeacherInterface[];
-  deleteTeacherMutate: (id: number) => void;
-  addTeacherMutate: (data: TeacherInterface) => void;
+  deleteTeacherMutate: (_teacherId: number) => void;
+  addTeacherMutate: (_teacherData: TeacherInterface) => void;
 }
 
 const useTeachers = (): TeachersHookInterface => {
@@ -48,23 +48,23 @@ const useTeachers = (): TeachersHookInterface => {
       debugger;
       queryClient.setQueryData<TeacherInterface[]>(['teachers'], context?.previousTeachers);
     },
-    onSuccess: async (teacherId, variables, { previousTeachers }) => {
+    onSuccess: async (_result, teacherId, context) => {
       console.log('deleteTeacherMutate  onSuccess', teacherId);
       debugger;
 
       await queryClient.cancelQueries({ queryKey: ['teachers'] });
-      if (!previousTeachers) {
+      if (!context?.previousTeachers) {
         return;
       }
-      const updatedTeachers = previousTeachers.filter((teacher: TeacherInterface) => teacher.id !== teacherId);
+      const updatedTeachers = context.previousTeachers.filter((teacher: TeacherInterface) => teacher.id !== teacherId);
       queryClient.setQueryData<TeacherInterface[]>(['teachers'], updatedTeachers);
     },
   });
 
   const addTeacherMutate = useMutation({
-    mutationFn: async (teacher: TeacherInterface) => addTeacherApi(teacher),
+    mutationFn: async (teacherData: TeacherInterface) => addTeacherApi(teacherData),
 
-    onMutate: async (teacher: TeacherInterface) => {
+    onMutate: async (teacherData: TeacherInterface) => {
       await queryClient.cancelQueries({ queryKey: ['teachers'] });
       const previousTeachers = queryClient.getQueryData<TeacherInterface[]>(['teachers']);
       const updatedTeachers = [...(previousTeachers ?? [])];
@@ -72,7 +72,7 @@ const useTeachers = (): TeachersHookInterface => {
       if (!updatedTeachers) return;
 
       updatedTeachers.push({
-        ...teacher,
+        ...teacherData,
         isNew: true,
       });
       queryClient.setQueryData<TeacherInterface[]>(['teachers'], updatedTeachers);
@@ -82,7 +82,7 @@ const useTeachers = (): TeachersHookInterface => {
 
       return { previousTeachers, updatedTeachers };
     },
-    onError: (err, variables, context) => {
+    onError: (err, _variables, context) => {
       console.log('addTeacherMutate  err', err);
       debugger;
 

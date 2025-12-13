@@ -5,7 +5,6 @@ import type TeacherInterface from '@/types/TeacherInterface';
 import styles from './Teachers.module.scss';
 import Teacher from './Teacher/Teacher';
 import AddTeacher, { type FormFields } from './AddTeacher/AddTeacher';
-import { v4 as uuidv4 } from 'uuid';
 
 const Teachers = (): React.ReactElement => {
   const {

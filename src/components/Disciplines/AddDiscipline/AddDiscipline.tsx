@@ -7,7 +7,7 @@ import useTeachers from '@/hooks/useTeachers';
 export type FormFields = Pick<DisciplineInterface, 'name' | 'groupId' | 'teacherId'>;
 
 interface Props {
-  onAdd: (disciplineForm: FormFields) => void;
+  onAdd: (formFields: FormFields) => void;
 }
 
 const AddDiscipline = ({ onAdd }: Props): React.ReactElement => {

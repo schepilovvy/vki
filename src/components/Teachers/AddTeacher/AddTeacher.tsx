@@ -7,7 +7,7 @@ export type FormFields = Pick<TeacherInterface, 'firstName' | 'lastName' | 'midd
 };
 
 interface Props {
-  onAdd: (teacherForm: FormFields) => void;
+  onAdd: (_formFields: FormFields) => void;
 }
 
 const AddTeacher = ({ onAdd }: Props): React.ReactElement => {
@@ -17,7 +17,7 @@ const AddTeacher = ({ onAdd }: Props): React.ReactElement => {
     formState: { errors },
   } = useForm<FormFields>();
 
-  const onSubmit: SubmitHandler<FormFields> = teacherForm => onAdd(teacherForm);
+  const onSubmit: SubmitHandler<FormFields> = formFields => onAdd(formFields);
 
   return (
     <div className={styles.AddTeacher}>
